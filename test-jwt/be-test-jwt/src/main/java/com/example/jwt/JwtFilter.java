@@ -1,6 +1,6 @@
 package com.example.jwt;
 
-import com.example.service.IUserService;
+import com.example.service.impl.AccountDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +22,7 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtility jwtUtility;
     @Autowired
-    private IUserService userService;
+    private AccountDetailService accountDetailService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -31,8 +31,7 @@ public class JwtFilter extends OncePerRequestFilter {
             String jwt = parseJwt(request);
             if (jwt != null && jwtUtility.validateJwtToken(jwt)) {
                 String username = jwtUtility.getUserNameFromJwtToken(jwt);
-
-                UserDetails userDetails = userService.findUserByUsername(username);
+                UserDetails userDetails = accountDetailService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -42,7 +41,6 @@ public class JwtFilter extends OncePerRequestFilter {
         } catch (Exception e) {
             logger.error("Cannot set user authentication: {}", e);
         }
-
         filterChain.doFilter(request, response);
     }
 

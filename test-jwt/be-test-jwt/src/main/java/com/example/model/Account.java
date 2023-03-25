@@ -8,7 +8,10 @@ import java.util.Set;
 @Entity
 public class Account {
     @Id
-    @Column(length = 50)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer accountId;
+
+    @Column(length = 50,nullable = false,unique = true)
     private String username;
     private Boolean isEnabled;
     private String password;
@@ -20,11 +23,20 @@ public class Account {
     public Account() {
     }
 
-    public Account(String username, Boolean isEnabled, String password, Set<AccountRole> accountRoleSet) {
+    public Account(Integer accountId, String username, Boolean isEnabled, String password, Set<AccountRole> accountRoleSet) {
+        this.accountId = accountId;
         this.username = username;
         this.isEnabled = isEnabled;
         this.password = password;
         this.accountRoleSet = accountRoleSet;
+    }
+
+    public Integer getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
     }
 
     public String getUsername() {

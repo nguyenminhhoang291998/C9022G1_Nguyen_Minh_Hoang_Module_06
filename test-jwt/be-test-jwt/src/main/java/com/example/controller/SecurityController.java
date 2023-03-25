@@ -2,8 +2,10 @@ package com.example.controller;
 
 import com.example.jwt.JwtUtility;
 import com.example.model.Account;
-import com.example.service.AccountDetailsImpl;
-import com.example.service.IUserService;
+import com.example.payload.response.JwtResponse;
+import com.example.payload.resquest.LoginRequest;
+import com.example.service.impl.AccountDetails;
+import com.example.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,41 +20,36 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("api/public")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SecurityController {
     @Autowired
     private JwtUtility jwtUtility;
     @Autowired
-    private IUserService userService;
+    private IAccountService accountService;
 
+    @Autowired
     private AuthenticationManager authenticationManager;
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody Account loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
+        Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtility.generateJwtToken(loginRequest.getUsername());
-        AccountDetailsImpl userDetails = (AccountDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        AccountDetails userDetails = (AccountDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        Account account = userService.findUserByUsername(loginRequest.getUsername());
-        Patient patient = patientService.findByAccountId(account.getAccountId(), false);
-
-        if (patient != null) {
-            patient.setAccount(null);
-        }
+        Account account = accountService.findAccountByUsername(loginRequest.getUsername());
 
         return ResponseEntity.ok(
                 new JwtResponse(
                         jwt,
                         userDetails.getId(),
                         userDetails.getUsername(),
-                        roles,
-                        patient)
+                        roles)
         );
     }
 

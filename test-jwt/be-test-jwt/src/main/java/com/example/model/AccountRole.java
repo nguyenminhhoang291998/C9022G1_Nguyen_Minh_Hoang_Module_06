@@ -6,17 +6,25 @@ import javax.persistence.*;
 public class AccountRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int accountId;
+    private int accountRoleId;
 
     @ManyToOne
-    @JoinColumn(name = "account_employee_email")
+    @JoinColumn(name = "account_id",referencedColumnName = "username")
     private Account account;
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
 
     public AccountRole() {
+    }
+
+    public int getAccountRoleId() {
+        return accountRoleId;
+    }
+
+    public void setAccountRoleId(int accountRoleId) {
+        this.accountRoleId = accountRoleId;
     }
 
     public Account getAccount() {

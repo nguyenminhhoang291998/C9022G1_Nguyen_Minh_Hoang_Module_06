@@ -1,10 +1,11 @@
-package com.example.service;
+package com.example.service.impl;
 
 import com.example.model.Account;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,29 +13,31 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 
-public class AccountDetailsImpl implements UserDetails {
+public class AccountDetails implements UserDetails {
 
     private static final long serialVersionUID = 1L;
+    private Integer id;
     private String username;
     private Boolean enabled;
-
     @JsonIgnore
     private String password;
     List<GrantedAuthority> authorities = null;
 
-    public AccountDetailsImpl(String username, String password,
-                              List<GrantedAuthority> authorities,Boolean enabled) {
+    public AccountDetails(Integer id, String username, String password, List<GrantedAuthority> authorities,Boolean enabled) {
+        this.id = id;
         this.username = username;
+        this.enabled = enabled;
         this.password = password;
         this.authorities = authorities;
-        this.enabled = enabled;
     }
+
     // This func help you guys get account information to AccountDetailService
-    public static AccountDetailsImpl build(Account account) {
+    public static AccountDetails build(Account account) {
         List<GrantedAuthority> authorities = account.getAccountRoleSet().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getRole().getName()))
                 .collect(Collectors.toList());
-        return new AccountDetailsImpl(
+        return new AccountDetails(
+                account.getAccountId(),
                 account.getUsername(),
                 account.getPassword(),
                 authorities,
@@ -46,7 +49,9 @@ public class AccountDetailsImpl implements UserDetails {
         return authorities;
     }
 
-
+    public Integer getId() {
+        return id;
+    }
 
     @Override
     public String getPassword() {
@@ -84,7 +89,7 @@ public class AccountDetailsImpl implements UserDetails {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        AccountDetailsImpl account = (AccountDetailsImpl) o;
+        AccountDetails account = (AccountDetails) o;
         return Objects.equals(username, account.username);
     }
 }
