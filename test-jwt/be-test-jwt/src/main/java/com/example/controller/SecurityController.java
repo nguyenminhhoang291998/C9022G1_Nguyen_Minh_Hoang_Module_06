@@ -4,6 +4,7 @@ import com.example.jwt.JwtUtility;
 import com.example.model.Account;
 import com.example.payload.response.JwtResponse;
 import com.example.payload.resquest.LoginRequest;
+import com.example.service.impl.AccountDetailService;
 import com.example.service.impl.AccountDetails;
 import com.example.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class SecurityController {
     @Autowired
     private IAccountService accountService;
 
+
     @Autowired
     private AuthenticationManager authenticationManager;
     @PostMapping("/login")
@@ -36,7 +38,7 @@ public class SecurityController {
         Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtility.generateJwtToken(loginRequest.getUsername());
+        String jwt = jwtUtility.generateJwtToken(authentication);
         AccountDetails userDetails = (AccountDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)

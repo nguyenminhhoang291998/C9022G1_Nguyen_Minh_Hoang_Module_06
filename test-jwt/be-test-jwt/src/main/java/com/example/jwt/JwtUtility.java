@@ -1,11 +1,14 @@
 package com.example.jwt;
 
+import com.example.service.impl.AccountDetails;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.net.Authenticator;
 import java.util.Date;
 
 @Component
@@ -13,10 +16,10 @@ public class JwtUtility implements Serializable {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtility.class);
     private String jwtSecret = "secretkey";
 
-    public String generateJwtToken(String username) {
-
+    public String generateJwtToken(Authentication authentication) {
+        AccountDetails accountDetails = (AccountDetails) authentication.getPrincipal();
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(accountDetails.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + (100 * 60 * 60 * 24)))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
