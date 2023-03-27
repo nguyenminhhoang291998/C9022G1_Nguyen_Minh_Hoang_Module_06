@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AccountDetailService accountService;
     @Autowired
-    private JwtEntryPoint jwtEntryPoint;;
+    private JwtEntryPoint jwtEntryPoint;
     @Autowired
     private JwtFilter jwtFilter;
     @Override

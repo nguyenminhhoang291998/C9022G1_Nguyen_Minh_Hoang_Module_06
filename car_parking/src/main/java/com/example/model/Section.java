@@ -18,9 +18,6 @@ public class Section {
     @JsonIgnore
     private Set<Location> locationSet;
 
-    @ManyToOne
-    @JoinColumn(name = "floor_id",referencedColumnName = "id")
-    private Floor floor;
 
     public Section() {
     }

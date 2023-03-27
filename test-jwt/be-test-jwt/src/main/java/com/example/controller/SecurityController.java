@@ -4,9 +4,9 @@ import com.example.jwt.JwtUtility;
 import com.example.model.Account;
 import com.example.payload.response.JwtResponse;
 import com.example.payload.resquest.LoginRequest;
-import com.example.service.impl.AccountDetailService;
 import com.example.service.impl.AccountDetails;
 import com.example.service.IAccountService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,7 +28,6 @@ public class SecurityController {
     private JwtUtility jwtUtility;
     @Autowired
     private IAccountService accountService;
-
 
     @Autowired
     private AuthenticationManager authenticationManager;

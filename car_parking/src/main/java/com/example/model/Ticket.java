@@ -28,6 +28,16 @@ public class Ticket {
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
 
+    private boolean isDeleted;
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     public Ticket() {
     }
 

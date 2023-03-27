@@ -32,6 +32,15 @@ public class Employee {
     private int province;
     private int commune;
     private String street;
+    private boolean isDeleted;
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
 
     @ManyToOne
     @JoinColumn(name = "position_id", referencedColumnName = "id")

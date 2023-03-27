@@ -35,9 +35,23 @@ public class Location {
     @JoinColumn(name = "section_id",referencedColumnName = "id")
     private Section section;
 
+    @ManyToOne
+    @JoinColumn(name = "floor_id",referencedColumnName = "id")
+    private Floor floor;
+
     @OneToMany(mappedBy = "location")
     @JsonIgnore
     private Set<Ticket> ticketSet;
+
+    private boolean isDeleted;
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
 
     public Location() {
     }

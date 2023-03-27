@@ -38,6 +38,16 @@ public class Customer {
     @JsonIgnore
     private Set<Car> carSet;
 
+    private boolean isDeleted;
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     public Customer() {
     }
 

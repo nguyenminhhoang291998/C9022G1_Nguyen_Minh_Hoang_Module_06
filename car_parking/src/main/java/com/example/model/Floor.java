@@ -17,15 +17,14 @@ public class Floor {
 
     @OneToMany(mappedBy = "floor")
     @JsonIgnore
-    private Set<Section> sectionSet;
+    private Set<Location> locationSet;
 
-
-    public Set<Section> getSectionSet() {
-        return sectionSet;
+    public Set<Location> getLocationSet() {
+        return locationSet;
     }
 
-    public void setSectionSet(Set<Section> sectionSet) {
-        this.sectionSet = sectionSet;
+    public void setLocationSet(Set<Location> locationSet) {
+        this.locationSet = locationSet;
     }
 
     public Floor() {
