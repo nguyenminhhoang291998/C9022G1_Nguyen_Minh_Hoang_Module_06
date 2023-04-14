@@ -1,0 +1,160 @@
+<div style="margin-top: 7%">
+  <div class="container-fluid">
+    <div class="row justify-content-center mt-5 mb-3">
+      <h1 class="text-center">DANH SÁCH CƠ SỞ</h1>
+    </div>
+    <div class="container">
+      <form>
+        <div class="col-md-12 row ">
+          <div class="col-md-2" style="margin-top: 5px">Tên cơ sở:</div>
+          <div class="col-md-3 col-lg-3" style="margin-left: -0.5%">
+            <input class="form-control me-2" type="text"
+                   style="border: 1px solid darkorange; width: 100%" name="nameSearch" [(ngModel)]="nameCenter">
+          </div>
+          <div class="col-md-2" style="margin-top: 5px">Tên quản lý:</div>
+          <div class="col-md-3 col-lg-3" style="margin-left: -0.5%">
+            <input class="form-control me-2" type="text"
+                   style="border: 1px solid darkorange; width: 100%" name="nameSearch" [(ngModel)]="nameAdmin">
+          </div>
+          <div class="col-md-2">
+            <button (click)="search()"
+                    class="btn" type="button"
+                    style="text-align: center; size: 30px; border: 1px solid #b6effb;background-color: darkorange">
+              Tìm kiếm
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <div class="col-md-12">
+          <h3 *ngIf="message" style="text-align: center; color: red">Không tìm thấy dữ liệu!</h3>
+          <table *ngIf="!message"
+                 class="table table-bordered table-hover"
+                 style="box-shadow: 0 0 10px 0 darkorange; margin-top: 20px">
+            <thead style="background-color:darkorange">
+            <tr>
+              <th scope="col">STT</th>
+              <th scope="col">Tên cơ sở</th>
+              <th scope="col">Ngày khai trương</th>
+              <th scope="col">Địa chỉ</th>
+              <th scope="col">Người quản lý</th>
+              <th scope="col">Xóa</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let center of centerList, index as i">
+              <td>{{i + 1}}</td>
+              <td>{{center.nameCenter}}</td>
+              <td>{{center.openingDate | date : 'dd-MM-yyyy'}}</td>
+              <td>{{center.address}}</td>
+              <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal" (click)="detail(center.idAdmin)">
+                {{center.nameAdmin}}
+              </button></td>
+              <td>
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="centerDelete = center">
+                  Xóa
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <!--phân trang-->
+          <div class="row">
+            <div class="col-md-2" style=" margin-bottom: 20px;margin-top: 5px">
+              <button class="btn" style="background-color: darkorange" routerLink="/create">Thêm cơ sở
+              </button>
+            </div>
+            <div class="col-md-8"></div>
+            <div class="col-md-2" style=" margin-bottom: 20px;margin-top: 5px">
+              <nav aria-label="Page navigation example" style="float: right">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <button [ngClass]="{disabled: currentPage === 0 }" style="background-color: darkorange"
+                            (click)="previousPage()" class="btn" aria-label="Previous">
+                      <span aria-hidden="true" style="color: black">Trước</span>
+                    </button>
+                  </li>
+                  <li class="page-item">
+                    <button class="btn" style="background-color: #f9f9f9">
+                      {{currentPage + 1}}/{{pageCount}}
+                    </button>
+                  </li>
+                  <li class="page-item">
+                    <button [ngClass]="{disabled: currentPage === pageCount - 1 }" style="background-color: darkorange"
+                            class="btn" (click)="nextPage()" aria-label="Next">
+                      <span aria-hidden="true" style="color: black">Sau</span>
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--modal xóa-->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+       style="max-width: 200rem">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Xác nhận xóa nhân viên</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="text-align: center; margin-right: 3%; width: 102%">
+          <span>Bạn có chắc chắn muốn xoá cơ sở </span>
+          <span style="color: red">{{centerDelete?.nameCenter}}</span>
+          <span> này không ?</span>
+          <p style="color: red ; margin-right: 17%; margin-top: 3%">* Lưu ý: Hành động này không thể hoàn tác !</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" data-bs-dismiss="modal" style="background-color: #e4e6eb">Đóng
+          </button>
+          <button type="button" class="btn"
+                  data-bs-dismiss="modal" style="background-color: darkorange" (click)="delete(centerDelete?.id)">Xóa
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--modal chi tiết-->
+  <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true"
+       style="max-width: 200rem">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel1">Chi tiết quản lý</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="text-align: center; margin-right: 3%; width: 102%">
+          <div class="row">
+            <div class="col-md-4">Tên quản lý:</div>
+            <div class="col-md-8">{{adminDetail?.name}}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">Ngày sinh:</div>
+            <div class="col-md-8">{{adminDetail?.dayOfBirth | date : 'dd-MM-yyyy' }}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">Giới tính:</div>
+            <div class="col-md-8">
+              <ng-container *ngIf="adminDetail?.gender == true"> Nam</ng-container>
+              <ng-container *ngIf="adminDetail?.gender == false"> Nữ</ng-container>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" data-bs-dismiss="modal" style="background-color: #e4e6eb">Đóng
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

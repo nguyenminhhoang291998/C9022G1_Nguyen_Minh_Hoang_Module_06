@@ -1,0 +1,19 @@
+.colorCurrentPage {
+  background-color : darkorange;
+  /*background-color: #b3c444*/
+
+}
+
+@media only screen and (max-width: 768px) {
+  .hidden-on-mobile {
+    display: none;
+  }
+}
+
+
+
+
+.wrapper {
+  position: relative;
+}
+

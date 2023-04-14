@@ -1,0 +1,78 @@
+-- floor 
+insert into `c0922g1_car_parking`.`floor`(`id`,`name`) values ('1','1');
+insert into `c0922g1_car_parking`.`floor`(`id`,`name`) values ('2','2');
+insert into `c0922g1_car_parking`.`floor`(`id`,`name`) values ('3','3');
+insert into `c0922g1_car_parking`.`floor`(`id`,`name`) values ('4','4');
+
+-- section
+insert into `c0922g1_car_parking`.`section`(`id`,`name`) values ('1','A');
+insert into `c0922g1_car_parking`.`section`(`id`,`name`) values ('2','B');
+insert into `c0922g1_car_parking`.`section`(`id`,`name`) values ('3','C');
+insert into `c0922g1_car_parking`.`section`(`id`,`name`) values ('4','D');
+
+-- permission_car_type
+insert into `c0922g1_car_parking`.`permission_car_type`(`id`,`name`) values ('1','4 Chỗ');
+insert into `c0922g1_car_parking`.`permission_car_type`(`id`,`name`) values ('2','7 Chỗ');
+insert into `c0922g1_car_parking`.`permission_car_type`(`id`,`name`) values ('3','12 Chỗ');
+
+-- location
+INSERT INTO `c0922g1_car_parking`.`location` (`id`, `height`, `is_deleted`, `is_occupied`, `length`, `name`, `width`, `floor_id`, `section_id`) VALUES ('1', '6', 1, 1, '5', '1', '6', '1', '1');
+INSERT INTO `c0922g1_car_parking`.`location` (`id`, `height`, `is_deleted`, `is_occupied`, `length`, `name`, `width`, `floor_id`, `section_id`) VALUES ('2', '4', 1, 1, '4', '2', '5', '1', '2');
+INSERT INTO `c0922g1_car_parking`.`location` (`id`, `height`, `is_deleted`, `is_occupied`, `length`, `name`, `width`, `floor_id`, `section_id`) VALUES ('3', '5', 1, 1, '6', '3', '4', '1', '3');
+INSERT INTO `c0922g1_car_parking`.`location` (`id`, `height`, `is_deleted`, `is_occupied`, `length`, `name`, `width`, `floor_id`, `section_id`) VALUES ('4', '6', 1, 1, '4', '4', '4', '1', '4');
+
+-- permission_car_type_location
+INSERT INTO `c0922g1_car_parking`.`permission_car_type_location` (`id`, `location_id`, `permission_car_type_id`) VALUES ('1', '1', '1');
+INSERT INTO `c0922g1_car_parking`.`permission_car_type_location` (`id`, `location_id`, `permission_car_type_id`) VALUES ('2', '2', '1');
+INSERT INTO `c0922g1_car_parking`.`permission_car_type_location` (`id`, `location_id`, `permission_car_type_id`) VALUES ('3', '3', '3');
+INSERT INTO `c0922g1_car_parking`.`permission_car_type_location` (`id`, `location_id`, `permission_car_type_id`) VALUES ('4', '4', '2');
+INSERT INTO `c0922g1_car_parking`.`permission_car_type_location` (`id`, `location_id`, `permission_car_type_id`) VALUES ('5', '4', '2');
+
+-- ticket_type
+INSERT INTO `c0922g1_car_parking`.`ticket_type` (`name`, `price`) VALUES ('ngày ', '15000');
+INSERT INTO `c0922g1_car_parking`.`ticket_type` (`name`, `price`) VALUES ('tháng', '450000');
+INSERT INTO `c0922g1_car_parking`.`ticket_type` (`name`, `price`) VALUES ('năm', '5400000');
+
+-- car-type
+INSERT INTO `c0922g1_car_parking`.`car_type` (`name`, `rate`) VALUES ('4 Ch?', '1');
+INSERT INTO `c0922g1_car_parking`.`car_type` (`name`, `rate`) VALUES ('7 Ch?', '1.2');
+INSERT INTO `c0922g1_car_parking`.`car_type` (`name`, `rate`) VALUES ('16 Ch?', '1.5');
+INSERT INTO `c0922g1_car_parking`.`car_type` (`name`, `rate`) VALUES ('Loại xe khác', '2');
+
+-- customer 
+INSERT INTO `c0922g1_car_parking`.`customer` (`commune`, `date_of_birth`, `district`, `email`, `gender`, `id_card`, `name`, `phone_number`, `province`, `street`,`is_deleted`) VALUES (1, '1994-12-25', 1, 'vule@gmail.com', 0, '123456789', 'Vu BD', '1234567893', 2, '20 Ham Nghi',0);
+INSERT INTO `c0922g1_car_parking`.`customer` (`commune`, `date_of_birth`, `district`, `email`, `gender`, `id_card`, `name`, `phone_number`, `province`, `street`,`is_deleted`) VALUES (1, '1994-12-25', 1, 'vule@gmail.com1', 0, '1234567891', 'Vu BD', '1234567894', 2, '20 Ham Nghi',0);
+INSERT INTO `c0922g1_car_parking`.`customer` (`commune`, `date_of_birth`, `district`, `email`, `gender`, `id_card`, `name`, `phone_number`, `province`, `street`,`is_deleted`) VALUES (1, '1994-12-25', 1, 'vule@gmail.com2', 0, '1234567892', 'Vu BD', '1234567895', 2, '20 Ham Nghi',0);
+
+-- car
+INSERT INTO `c0922g1_car_parking`.`car` (`brand`, `is_deleted`, `name`, `plate_number`, `car_type_id`, `customer_id`) VALUES ('Toyota', 0, 'Fortuner', '92B-99999', '1', '1');
+INSERT INTO `c0922g1_car_parking`.`car` (`brand`, `is_deleted`, `name`, `plate_number`, `car_type_id`, `customer_id`) VALUES ('Mazda', 0, 'CX5', '92B-11111', '2', '2');
+INSERT INTO `c0922g1_car_parking`.`car` (`brand`, `is_deleted`, `name`, `plate_number`, `car_type_id`, `customer_id`) VALUES ('Huyndai', 0, 'Accent', '43H-66666', '1', '1');
+
+-- role
+INSERT INTO `c0922g1_car_parking`.`role` (`id`, `name`) VALUES (1, 'USER');
+INSERT INTO `c0922g1_car_parking`.`role` (`id`, `name`) VALUES (2, 'ADMIN');
+
+
+-- position
+INSERT INTO `c0922g1_car_parking`.`position` (`name`) VALUES ('Bảo vệ');
+INSERT INTO `c0922g1_car_parking`.`position` (`name`) VALUES ('Giữ xe');
+-- employee
+INSERT INTO `c0922g1_car_parking`.`employee` (`commune`, `date_of_birth`, `district`, `gender`, `id_card`, `is_deleted`, `name`, `province`, `street`, `email`, `position_id`,`phone_number`) VALUES (2, '1995-05-10', '2', 1, '321321321', 0, 'Nguyễn Hoàng', 2, '20 Lê Đình Lý', 'nguyenminhhoang291998@gmail.com', 2,'0905123123');
+INSERT INTO `c0922g1_car_parking`.`employee` (`commune`, `date_of_birth`, `district`, `gender`, `id_card`, `is_deleted`, `name`, `province`, `street`, `email`, `position_id`,`phone_number`) VALUES (1, '1999-03-02', 1, 1, '123456789', 0, 'Lê Tài', 1, '10 Hàm Nghi', 'taile0310@gmail.com', 1,'0905128912');
+
+
+-- account
+INSERT INTO `c0922g1_car_parking`.`account` (`employee_id`, `password`) VALUES (1, '$2a$12$Dc3ALv3rjeU6Oa4lnmaE3eL.4Ca4NsdXX5.le/s/Yxy27MladcVPK');
+INSERT INTO `c0922g1_car_parking`.`account` (`employee_id`, `password`) VALUES (2, '$2a$12$/bvuRirX9yLYm3qBCQJJ3.uMAby3XpEtPvZR7/N.qSdqR.QUcDRVe');
+
+-- acount-role
+INSERT INTO `c0922g1_car_parking`.`account_role` ( `account_id`, `role_id`) VALUES (1, '2');
+INSERT INTO `c0922g1_car_parking`.`account_role` (`account_id`, `role_id`) VALUES (2, '1');
+
+
+-- ticket
+INSERT INTO `c0922g1_car_parking`.`ticket` (`effective_date`, `expiry_date`, `is_deleted`, `total_price`, `car_id`, `employee_id`, `location_id`, `ticket_type_id`) VALUES ('2023-3-11', '2023-3-12', 0, 12000, 1, 1, 1, 1);
+INSERT INTO `c0922g1_car_parking`.`ticket` (`effective_date`, `expiry_date`, `is_deleted`, `total_price`, `car_id`, `employee_id`, `location_id`, `ticket_type_id`) VALUES ('2023-4-12', '2023-5-12', 0, 340000, 3, 2, 2, 2);
+INSERT INTO `c0922g1_car_parking`.`ticket` (`effective_date`, `expiry_date`, `is_deleted`, `total_price`, `car_id`, `employee_id`, `location_id`, `ticket_type_id`) VALUES ('2023-2-11', '2024-2-11', 0, 4445667, 2, 1, 3, 3);
+INSERT INTO `c0922g1_car_parking`.`ticket` (`effective_date`, `expiry_date`, `is_deleted`, `total_price`, `car_id`, `employee_id`, `location_id`, `ticket_type_id`) VALUES ('2023-3-23', '2024-3-24', 0, 13320, 1, 2, 4, 1);
