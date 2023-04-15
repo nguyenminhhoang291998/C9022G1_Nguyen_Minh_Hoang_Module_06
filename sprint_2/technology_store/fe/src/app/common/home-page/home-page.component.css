@@ -1,0 +1,20 @@
+.card-surface{
+  padding: 0 10px 0 40px;
+}
+.card-surface div{
+  padding: 0 0;
+  border: 1px solid lightblue;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px #7a9fd3;
+  text-align: center;
+}
+.card-surface a{
+  font-size: 25px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.card-surface img{
+  width: 250px;
+  padding-left: 2px;
+}

@@ -1,0 +1,17 @@
+.footer-page{
+  background-color: rgba(201, 194, 194,40%);
+  height: 100px;
+}
+.footer-page li{
+  margin: 30px 7px;
+  font-family: Arial, serif;
+  font-size: 20px;
+  color: #000000;
+}
+
+.footer-page a{
+  color: #262424;
+}
+* {
+  box-sizing: border-box;
+}
