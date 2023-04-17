@@ -8,6 +8,7 @@ import { FooterComponent } from './common/footer/footer.component';
 import { HomePageComponent } from './common/home-page/home-page.component';
 import { ErrorPageComponent } from './common/error-page/error-page.component';
 import {HttpClientModule} from '@angular/common/http';
+import {CartModule} from './cart/cart.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {HttpClientModule} from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    CartModule
   ],
   providers: [],
   bootstrap: [AppComponent]

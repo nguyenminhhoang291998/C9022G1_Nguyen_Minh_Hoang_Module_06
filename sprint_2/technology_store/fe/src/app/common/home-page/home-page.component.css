@@ -1,7 +1,8 @@
-.card-surface{
-  padding: 0 10px 0 40px;
-}
+/*.card-surface{*/
+/*  padding: 0 10px 0 40px;*/
+/*}*/
 .card-surface div{
+  margin: 1% 0;
   padding: 0 0;
   border: 1px solid lightblue;
   border-radius: 10px;
@@ -15,6 +16,7 @@
 }
 
 .card-surface img{
-  width: 250px;
-  padding-left: 2px;
+  width: 100%;
+  padding: 3% 3% 0
 }
+

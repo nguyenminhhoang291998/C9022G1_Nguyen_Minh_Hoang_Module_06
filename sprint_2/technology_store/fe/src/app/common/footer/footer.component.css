@@ -1,17 +1,20 @@
-.footer-page{
-  background-color: rgba(201, 194, 194,40%);
-  height: 100px;
-}
-.footer-page li{
-  margin: 30px 7px;
-  font-family: Arial, serif;
-  font-size: 20px;
-  color: #000000;
+
+.footer {
+  background: #1f1f1f;
+  font-family: Raleway-Bold;
 }
 
-.footer-page a{
-  color: #262424;
+
+a, .copyright {
+  color: #909395;
+  text-decoration: none;
+  margin-top: 1%;
+  margin-left: 2% ;
+  margin-right: 2%;
+  font-size: 20px;
 }
-* {
-  box-sizing: border-box;
+
+
+h3 {
+color: #dedede;
 }

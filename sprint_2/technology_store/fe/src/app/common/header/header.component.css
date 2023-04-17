@@ -5,6 +5,7 @@
 
 h4{
   font-size: 20px;
+  font-family: Raleway-SemiBold;
 }
 #pipe {
   border-left: 2px solid #000;
@@ -41,7 +42,6 @@ h4{
 
 * {
   box-sizing: border-box;
-  font-family: Raleway-Bold;
 }
 
 
