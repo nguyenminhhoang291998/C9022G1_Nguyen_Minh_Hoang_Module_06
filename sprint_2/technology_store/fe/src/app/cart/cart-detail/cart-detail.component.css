@@ -105,7 +105,7 @@ select{
   width: 100%;
   background-color: rgb(247, 247, 247);
 }
-input{
+.code{
   border: 1px solid rgba(0, 0, 0, 0.137);
   padding: 1vh;
   margin-bottom: 4vh;
@@ -113,21 +113,30 @@ input{
   width: 100%;
   background-color: rgb(247, 247, 247);
 }
-input:focus::-webkit-input-placeholder
+#quantity {
+  border: 1px solid rgba(0, 0, 0, 0.137);
+  border-radius: 5px;
+  background-color: rgb(247, 247, 247);
+  width: 27%;
+  height: 35px;
+ text-align: center;
+}
+input:focus::-webckit-input-placeholder
 {
   color:transparent;
 }
-.btn{
-  background-color: #000;
+.button-pay{
+  background-color: #383737;
   border-color: #000;
   color: white;
-  width: 100%;
-  font-size: 0.7rem;
+  width: 100% !important;
+  font-size: 1rem;
   margin-top: 4vh;
   padding: 1vh;
   border-radius: 0;
+  text-decoration: none;
 }
-.btn:focus{
+.button-pay:focus{
   box-shadow: none;
   outline: none;
   box-shadow: none;
@@ -136,7 +145,7 @@ input:focus::-webkit-input-placeholder
   -webkit-user-select: none;
   transition: none;
 }
-.btn:hover{
+.button-pay:hover{
   color: white;
 }
 a{
@@ -151,4 +160,10 @@ a:hover{
   background-repeat: no-repeat;
   background-position-x: 95%;
   background-position-y: center;
+}
+
+.change {
+  width: 20px;
+  font-size: 20px;
+  margin: 3%;
 }

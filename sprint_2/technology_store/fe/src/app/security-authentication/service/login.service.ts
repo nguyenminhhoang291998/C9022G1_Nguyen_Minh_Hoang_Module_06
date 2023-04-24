@@ -29,16 +29,7 @@ export class LoginService {
     }, this.httpOptions);
   }
 
-  forgotPassword(username: string): Observable<any> {
-    return this.http.get(AUTH_API + 'reset-password/' + username);
-  }
-
-  changePassword(obj): Observable<any> {
-    return this.http.post(AUTH_API + 'change-password', {
-      username: obj.username,
-      password: obj.password,
-      newPassword: obj.newPassword,
-      confirmNewPassword: obj.confirmNewPassword
-    }, this.httpOptions);
+  logout(): Observable<any> {
+    return this.http.get(AUTH_API + 'logout');
   }
 }

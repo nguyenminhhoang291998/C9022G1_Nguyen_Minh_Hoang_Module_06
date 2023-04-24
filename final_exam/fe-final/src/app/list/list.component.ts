@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Center} from '../model/center';
 import {CenterService} from '../service/center.service';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 import {Employee} from '../model/employee';
 import {EmployeeService} from '../service/employee.service';
 
@@ -27,6 +27,7 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.getAll();
   }
+
   getAll() {
     this.centerService.getAllEmployee(this.currentPage, this.nameCenter, this.nameAdmin).subscribe(dataList => {
       const data = dataList;
@@ -48,9 +49,6 @@ export class ListComponent implements OnInit {
       this.currentPage--;
     }
     this.getAll();
-  }
-
-  goToPage(pageNumber: any) {
   }
 
   nextPage() {

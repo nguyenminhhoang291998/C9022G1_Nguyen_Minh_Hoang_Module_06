@@ -4,70 +4,74 @@
       <div class="title">
         <div class="row">
           <div class="col"><h4><b>Giỏ hàng</b></h4></div>
-          <div class="col align-self-center text-right text-muted">3 sản phẩm</div>
+          <div class="col align-self-center text-right text-muted"></div>
         </div>
       </div>
-      <div class="row border-top border-bottom">
+      <h5 style="text-align: center; color: red" [hidden]="cartList">Giỏ hàng đang trống, vui lòng chọn sản phẩm!</h5>
+      <div class="row border-top border-bottom" *ngFor="let cart of cartList">
         <div class="row main align-items-center">
-          <div class="col-2"><img class="img-fluid" src="../../../assets/img/mobile/xiaomi-redmi-10a-thumb-600x600.jpg"></div>
+          <div class="col-2"><img class="img-fluid" src="{{cart.url}}"></div>
           <div class="col">
-            <div class="row text-muted">Điện thoại</div>
-            <div class="row">Xiaomi 8</div>
+            <div class="row">{{cart.productName}}</div>
           </div>
-          <div class="col">
-            <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a>
+          <div class="col d-flex justify-content-center align-items-center">
+            <button class="change" (click)="desc(cart)">-</button>
+            <input id="quantity" (change)="changQuantity($event,cart)" value="{{cart.orderedQuantity}}">
+            <button class="change" (click)="inc(cart)">+</button>
           </div>
-          <div class="col">3 490 000đ <span class="close">&#10005;</span></div>
+          <div class="col">{{cart.productPrice | number:'1.0-0' }} đ
+            <button data-bs-toggle="modal" data-bs-target="#deleteModal"
+                    (click)="showModalDeleteProduct(cart)" style="" class="btn">&#10005;</button></div>
         </div>
       </div>
-      <div class="row">
-        <div class="row main align-items-center">
-          <div class="col-2"><img class="img-fluid" src="../../../assets/img/mobile/iphone%2014pro.jpg"></div>
-          <div class="col">
-            <div class="row text-muted">Điện thoại</div>
-            <div class="row">Iphone 14</div>
-          </div>
-          <div class="col">
-            <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a>
-          </div>
-          <div class="col">3 490 000đ <span class="close">&#10005;</span></div>
-        </div>
-      </div>
-      <div class="row border-top border-bottom">
-        <div class="row main align-items-center">
-          <div class="col-2"><img class="img-fluid" src="../../../assets/img/mobile/samsung-galaxy-s23-600x600.jpg"></div>
-          <div class="col">
-            <div class="row text-muted">Điện thoại</div>
-            <div class="row">Samsung 8</div>
-          </div>
-          <div class="col">
-            <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a>
-          </div>
-          <div class="col">3 490 000đ <span class="close">&#10005;</span></div>
-        </div>
-      </div>
-     <div class="back-to-shop"><a class="text-muted" role="button" routerLink="/homepage">Quay lại</a></div>
+
+      <div class="back-to-shop"><a class="text-muted" role="button" routerLink="/homepage">Quay lại</a></div>
     </div>
     <div class="col-md-4 summary">
       <div><h5><b>Chi tiết</b></h5></div>
       <hr>
       <div class="row">
-        <div class="col" style="padding-left:0;">Sản phẩm: 3</div>
-        <div class="col text-right">12 490 000đ </div>
+        <div class="col" style="padding-left:0;">Sản phẩm: {{totalProduct}}</div>
+        <div class="col text-right">{{totalPrice | number:'1.0-0' }} đ</div>
       </div>
       <form>
         <p>Giao hàng</p>
-        <select><option class="text-muted">Tiêu chuẩn - 40 000đ</option></select>
+        <select>
+          <option class="text-muted">Tiêu chuẩn - 40 000đ</option>
+        </select>
         <p>Mã giảm giá</p>
         <input id="code" placeholder="Nhập mã">
       </form>
-      <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+      <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;" >
         <div class="col">Tổng tiền</div>
-        <div class="col text-right">12 530 000đ</div>
+        <div class="col text-right" *ngIf="cartList">{{totalPrice + 40000 | number:'1.0-0' }} đ</div>
       </div>
-      <a role="button" routerLink="/homepage" class="btn">Thanh toán</a>
+      <div style="text-align: center" *ngIf="cartList"><a role="button" routerLink="/paypal" class="button-pay">Thanh toán</a></div>
     </div>
   </div>
 
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+       style="max-width: 200rem">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Xác nhận xóa sản phẩm</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="text-align: center; margin-right: 3%; width: 102%">
+          <span>Bạn có chắc chắn muốn xoá sản phẩm </span>
+          <span style="color: red">{{productDelete?.productName}}</span>
+          <span> ra khỏi giỏ hàng?</span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" data-bs-dismiss="modal" style="background-color: #e4e6eb">Đóng
+          </button>
+          <button type="button" class="btn"
+                  data-bs-dismiss="modal" style="background-color: darkorange" (click)="delete(productDelete?.orderDetailId)">Xóa
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 

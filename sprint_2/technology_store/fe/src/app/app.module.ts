@@ -7,8 +7,12 @@ import { HeaderComponent } from './common/header/header.component';
 import { FooterComponent } from './common/footer/footer.component';
 import { HomePageComponent } from './common/home-page/home-page.component';
 import { ErrorPageComponent } from './common/error-page/error-page.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CartModule} from './cart/cart.module';
+import {AuthInterceptor} from './security-authentication/security-auth/auth.interceptor';
+import {ProductModule} from './product/product.module';
+import {DecimalPipe} from '@angular/common';
+import { PayComponent } from './common/pay/pay.component';
 
 @NgModule({
   declarations: [
@@ -16,15 +20,18 @@ import {CartModule} from './cart/cart.module';
     HeaderComponent,
     FooterComponent,
     HomePageComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    PayComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    CartModule
+    CartModule,
+    ProductModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, DecimalPipe],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

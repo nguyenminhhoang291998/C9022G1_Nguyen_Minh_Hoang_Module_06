@@ -44,4 +44,43 @@ h4{
   box-sizing: border-box;
 }
 
+.nav-item{
+  margin-left: 8%;
+}
 
+.button-login {
+  text-decoration: none;
+  color: #075cba;
+}
+
+
+.dropdownUser {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 10px 0 0 0;
+  z-index: 2;
+  left: 0;
+  width: 2rem;
+}
+
+.dropdownUser:hover .dropdown-content {
+  display: block;
+}
+
+.getstarted,
+.getstarted:focus{
+}
+
+.getstarted:hover,
+.getstarted:focus:hover{
+  color: #fff;
+  background: #ee7843;
+}

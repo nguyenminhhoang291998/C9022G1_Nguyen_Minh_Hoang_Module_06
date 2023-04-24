@@ -76,7 +76,7 @@ INSERT INTO be_technology_store.product (description, name, price, product_quant
 VALUES 
     ('MacBook Air M1 2020 với chip M1, màn hình Retina, bàn phím Magic Keyboard và Touch ID, là lựa chọn hoàn hảo cho các tác vụ hàng ngày.', 'MacBook Air M1 2020', '25990000', '10', '2020-11-17', '1', '1'),
     ('MacBook Pro M1 2020 với chip M1, RAM 8GB hoặc 16GB, màn hình Retina 13 inch, Touch Bar và Touch ID, là công cụ lý tưởng cho các công việc đòi hỏi hiệu năng cao.', 'MacBook Pro M1 2020', '30990000', '8', '2020-11-17', '1', '1'),
-    ('MacBook Pro 13 inch M2 với chip M2 mới, RAM 16GB hoặc 32GB, 1TB hoặc 2TB SSD, màn hình Retina 13 inch cải tiến, mang lại hiệu năng và trải nghiệm tốt nhất cho người dùng.', 'MacBook Pro 13 inch M2', '43990000', '5', '2023-07-15', '1', '1'),
+    ('MacBook Pro 13 inch M2 với chip M2 mới, RAM 16GB hoặc 32GB, 1TB hoặc 2TB SSD, màn hình Retina 13 inch cải tiến, mang lại hiệu năng và trải nghiệm tốt nhất cho người dùng.', 'MacBook Pro M2', '43990000', '5', '2023-07-15', '1', '1'),
     ('MacBook Air M2 2022 với chip M2 mới, RAM 8GB hoặc 16GB, 512GB hoặc 1TB SSD, màn hình Retina 13 inch cải tiến, là sự kết hợp hoàn hảo giữa hiệu năng và di động.', 'MacBook Air M2 2022', '29990000', '7', '2022-09-14', '1', '1');
 
 
@@ -101,13 +101,19 @@ VALUES ('Galaxy S22 Ultra với camera 64MP, Exynos 9855, màn hình 6.8 inch Dy
 INSERT INTO be_technology_store.product (description, name, price, product_quantity, release_date, brands_id, product_type_id)
 VALUES ('Redmi Note 12 Pro với camera 108MP, Snapdragon 888, RAM 8GB, ROM 256GB, màn hình 6.8 inch IPS LCD, pin 5000mAh, sạc nhanh 66W.', 'Redmi Note 12 Pro', '9999000', '20', '2023-06-02', '4', '2');
 
-INSERT INTO be_technology_store.product (description, name, price, product_quantity, release_date, brands_id, product_type_id)
+INSERT INTO be_technology_store.product 
+(description, name, price, product_quantity, release_date, brands_id, product_type_id)
 VALUES
-('Redmi Note 12 với Snapdragon 778G, RAM 6GB, ROM 128GB, camera 64MP, màn hình 6.6 inch AMOLED, pin 5000mAh, sạc nhanh 33W.', 'Redmi Note 12', '5999000', '30', '2023-08-10', '4', '2'),
-('Redmi Note 11 với MediaTek Dimensity 920, RAM 6GB, ROM 128GB, camera 48MP, màn hình 6.5 inch IPS LCD, pin 5000mAh, sạc nhanh 44W.', 'Redmi Note 11', '4499000', '25', '2023-07-22', '4', '2'),
-('Xiaomi 13 với Snapdragon 898, RAM 8GB, ROM 256GB, camera 108MP, màn hình 6.8 inch Super AMOLED, pin 4500mAh, sạc nhanh 120W.', 'Xiaomi 13', '26999000', '5', '2023-09-05', '4', '2'),
-('Xiaomi 12T với Snapdragon 870, RAM 8GB, ROM 128GB, camera 64MP, màn hình 6.7 inch IPS LCD, pin 4500mAh, sạc nhanh 66W.', 'Xiaomi 12T', '13999000', '15', '2023-06-25', '4', '2'),
-('Xiaomi Note 11 Pro với MediaTek Dimensity 1200, RAM 8GB, ROM 256GB, camera 108MP, màn hình 6.9 inch IPS LCD, pin 5000mAh, sạc nhanh 100W.', 'Xiaomi Note 11 Pro', '18999000', '10', '2023-08-01', '4', '2');
+('Redmi Note 12 với Snapdragon 778G, RAM 6GB, ROM 128GB, camera 64MP, màn hình 6.6 inch AMOLED,
+ pin 5000mAh, sạc nhanh 33W.', 'Redmi Note 12', '5999000', '30', '2023-08-10', '4', '2'),
+('Redmi Note 11 với MediaTek Dimensity 920, RAM 6GB, ROM 128GB, camera 48MP, màn hình 6.5 inch IPS LCD,
+ pin 5000mAh, sạc nhanh 44W.', 'Redmi Note 11', '4499000', '25', '2023-07-22', '4', '2'),
+('Xiaomi 13 với Snapdragon 898, RAM 8GB, ROM 256GB, camera 108MP, màn hình 6.8 inch Super AMOLED,
+ pin 4500mAh, sạc nhanh 120W.', 'Xiaomi 13', '26999000', '5', '2023-09-05', '4', '2'),
+('Xiaomi 12T với Snapdragon 870, RAM 8GB, ROM 128GB, camera 64MP, màn hình 6.7 inch IPS LCD, pin 4500mAh,
+ sạc nhanh 66W.', 'Xiaomi 12T', '13999000', '15', '2023-06-25', '4', '2'),
+('Xiaomi Note 11 Pro với MediaTek Dimensity 1200, RAM 8GB, ROM 256GB, camera 108MP, màn hình 6.9 inch IPS LCD,
+ pin 5000mAh, sạc nhanh 100W.', 'Xiaomi Note 11 Pro', '18999000', '10', '2023-08-01', '4', '2');
 
 
 -- order_detail
@@ -144,3 +150,4 @@ INSERT INTO `be_technology_store`.`image` (`id`, `url`, `product_id`) VALUES ('2
 INSERT INTO `be_technology_store`.`image` (`id`, `url`, `product_id`) VALUES ('23', 'https://cdn2.cellphones.com.vn/x358,webp,q100/media/catalog/product/p/m/pms_1670745783.80967984.png', '23');
 INSERT INTO `be_technology_store`.`image` (`id`, `url`, `product_id`) VALUES ('24', 'https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/x/i/xiaomi-12t-den_1.jpg', '24');
 INSERT INTO `be_technology_store`.`image` (`id`, `url`, `product_id`) VALUES ('25', 'https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/t/_/t_i_xu_ng_2_18.png', '25');
+INSERT INTO `be_technology_store`.`image` (`id`, `url`, `product_id`) VALUES ('26', 'https://shopdunk.com/images/thumbs/0000627_blue_550.webp', '1');
