@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
               private shareService: ShareService,
               private router: Router,
               private loginService: LoginService) {
+    this.loadHeader();
   }
 
   loadHeader(): void {
@@ -39,21 +40,20 @@ export class HeaderComponent implements OnInit {
     this.shareService.getClickEvent().subscribe(() => {
       this.loadHeader();
     });
-    this.loadHeader();
   }
 
-  async logOut() {
-    await this.loginService.logout().subscribe(() => {
+   logOut() {
+    this.loginService.logout().subscribe(async () => {
       this.tokenStorageService.signOut();
       this.shareService.sendClickEvent();
-      Swal.fire({
+      await Swal.fire({
         text: 'Đăng xuất thành công.',
         icon: 'success',
         showConfirmButton: false,
         timer: 1500
       });
-      this.router.navigateByUrl('/');
-      location.reload();
+      await this.router.navigateByUrl('/security/login');
+      await location.reload();
     }, error => {
       Swal.fire({
         text: 'Đã có lỗi xảy ra. Đăng xuất thất bại!',
@@ -69,6 +69,5 @@ export class HeaderComponent implements OnInit {
       this.accountName = this.tokenStorageService.getUser().name;
     }
   }
-
 
 }

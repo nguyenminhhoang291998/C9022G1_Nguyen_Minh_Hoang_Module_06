@@ -1,5 +1,5 @@
-import {Brands} from './brands';
 import {ProductType} from './product-type';
+import {Brands} from './brands';
 
 export interface Product {
   id?: number;
@@ -8,7 +8,6 @@ export interface Product {
   description?: string;
   releaseDate?: string;
   productQuantity?: number;
-  productTypeName?: string;
-  brandsName?: string;
-  url?: string;
+  productType?: ProductType;
+  brands?: Brands;
 }

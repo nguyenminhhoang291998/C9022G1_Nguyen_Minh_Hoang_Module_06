@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional
+
 public interface IOrderRepository extends JpaRepository<Order,Long> {
     @Query(value = "SELECT \n" +
             "    o.id AS id, \n" +
@@ -30,10 +31,19 @@ public interface IOrderRepository extends JpaRepository<Order,Long> {
     List<IOrderDTO> getCart(Long personId);
 
     @Modifying
-    @Query(value = "update order_detail set ordered_quantity = ?2 where id = ?1",nativeQuery = true)
-    void changeQuantity(Long orderDetail, Long quantity);
+    @Query(value = "UPDATE order_detail od\n" +
+            "JOIN orders o ON od.order_id = o.id\n" +
+            "SET od.ordered_quantity = ?2\n" +
+            "WHERE od.id = ?1 AND o.is_paid = false",nativeQuery = true)
+    void changeQuantity(Long orderDetail, int quantity);
 
     @Modifying
     @Query(value = "delete from order_detail where id = ?1", nativeQuery = true)
     void deleteOrderDetail(Long orderDetailId);
+
+//    @Query(value = "SELECT LAST_INSERT_ID()", nativeQuery = true)
+//    Long getLastInsertId();
+
+    @Query(value = "select * from orders where person_id = ?1 limit 1",nativeQuery = true)
+    Order findByPersonId(Long personId);
 }

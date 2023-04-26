@@ -18,7 +18,7 @@ public class Order {
     @Column(columnDefinition = "date", nullable = false)
     private String datePurchase;
 
-    private double totalPay;
+    private Double totalPay;
 
     private boolean isPaid;
 
@@ -36,7 +36,12 @@ public class Order {
     public Order() {
     }
 
-    public Order(Long id, String orderCode, String datePurchase, double totalPay, boolean isPaid, Long employeeId, Person person, Set<OrderDetail> orderDetailSet) {
+    public Order(String datePurchase, Person person) {
+        this.datePurchase = datePurchase;
+        this.person = person;
+    }
+
+    public Order(Long id, String orderCode, String datePurchase, Double totalPay, boolean isPaid, Long employeeId, Person person, Set<OrderDetail> orderDetailSet) {
         this.id = id;
         this.orderCode = orderCode;
         this.datePurchase = datePurchase;
@@ -87,11 +92,11 @@ public class Order {
         this.datePurchase = datePurchase;
     }
 
-    public double getTotalPay() {
+    public Double getTotalPay() {
         return totalPay;
     }
 
-    public void setTotalPay(double totalPay) {
+    public void setTotalPay(Double totalPay) {
         this.totalPay = totalPay;
     }
 

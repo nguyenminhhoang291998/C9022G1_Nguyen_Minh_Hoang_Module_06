@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Product} from '../../model/product';
 import {ProductType} from '../../model/product-type';
 import {Brands} from '../../model/brands';
 import {ProductService} from '../../service/product.service';
@@ -8,6 +7,8 @@ import {BrandsService} from '../../service/brands.service';
 import {TokenStorageService} from '../../security-authentication/service/token-storage.service';
 import {Router} from '@angular/router';
 import {CartService} from '../../service/cart.service';
+import {ProductList} from '../../model/product-list';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-list',
@@ -17,7 +18,7 @@ import {CartService} from '../../service/cart.service';
 export class ProductListComponent implements OnInit {
   totalPages = 0;
   currentPage = 0;
-  productList: Product[];
+  productList: ProductList[];
   productTypeList: ProductType[];
   brandsList: Brands[];
   nameProduct = '';
@@ -78,6 +79,13 @@ export class ProductListComponent implements OnInit {
   }
 
   addProduct(idProduct: number) {
-    this.cartService.addProduct(this.personId, idProduct);
+    this.cartService.addProduct(this.personId, idProduct).subscribe(() => {
+      Swal.fire({
+        text: 'Sản phẩm đã được thêm vào giỏ hàng.',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    });
   }
 }

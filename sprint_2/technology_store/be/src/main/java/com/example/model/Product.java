@@ -46,6 +46,10 @@ public class Product {
     public Product() {
     }
 
+    public Product(Long id) {
+        this.id = id;
+    }
+
     public Product(Long id, String name, Double price, String description, String releaseDate, int productQuantity, ProductType productType, Brands brands, Set<OrderDetail> orderDetailSet, Set<Image> imageSet) {
         this.id = id;
         this.name = name;

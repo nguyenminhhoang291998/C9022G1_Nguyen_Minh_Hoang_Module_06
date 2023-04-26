@@ -44,6 +44,10 @@ public class Person {
     public Person() {
     }
 
+    public Person(Long id) {
+        this.id = id;
+    }
+
     public Person(Long id, String name, String dateOfBirth, String phoneNumber, String idCard, String address, boolean gender, String email, Account account, boolean isDeleted, Set<Order> orderSet) {
         this.id = id;
         this.name = name;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {render} from 'creditcardpayments/creditCardPayments';
 
 @Component({
@@ -7,18 +7,20 @@ import {render} from 'creditcardpayments/creditCardPayments';
   styleUrls: ['./pay.component.css']
 })
 export class PayComponent implements OnInit {
+  total = 10;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
     render({
       id: '#myPaypalButtons',
       currency: 'USD',
-      value: '100.00',
+      value: this.total.toString(2),
       onApprove: (details => {
         alert('thành công!');
       })
-    })
+    });
   }
 
 }

@@ -3,14 +3,8 @@ package com.example.controller;
 import com.example.dto.IOrderDTO;
 import com.example.dto.IProductDTO;
 import com.example.dto.ProductDetail;
-import com.example.model.Brands;
-import com.example.model.Image;
-import com.example.model.Product;
-import com.example.model.ProductType;
-import com.example.service.IBrandsService;
-import com.example.service.IOrderService;
-import com.example.service.IProductService;
-import com.example.service.IProductTypeService;
+import com.example.model.*;
+import com.example.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,6 +29,8 @@ public class ProductRestController {
 
     @Autowired
     private IOrderService iOrderService;
+    @Autowired
+    private IOrderDetailService iOrderDetailService;
 
     @GetMapping("/product/list")
     public ResponseEntity<?> getAllProduct(@RequestParam(required = false, defaultValue = "0") int page,
@@ -77,7 +73,7 @@ public class ProductRestController {
     }
 
     @GetMapping("/changeQuantity")
-    public ResponseEntity<?> changeQuantity(@RequestParam Long orderDetailId, @RequestParam Long quantity) {
+    public ResponseEntity<?> changeQuantity(@RequestParam Long orderDetailId, @RequestParam int quantity) {
         boolean checkChangeQuantity = iOrderService.changeQuantity(orderDetailId, quantity);
         if (!checkChangeQuantity) {
             return new ResponseEntity<>("Đã có lỗi xảy ra!", HttpStatus.NOT_FOUND);
@@ -85,13 +81,26 @@ public class ProductRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    @GetMapping("/addProduct")
-//    public ResponseEntity<?> addProduct(@RequestParam Long personId, @RequestParam Long idProduct) {
-//        List<IOrderDTO> orderDTOList = iOrderService.getCart(personId);
-//        if (orderDTOList.isEmpty()) {
-//
-//        }
-//    }
+    @GetMapping("/addProduct")
+    public ResponseEntity<?> addProduct(@RequestParam Long personId, @RequestParam Long productId) {
+        List<IOrderDTO> orderDTOList = iOrderService.getCart(personId);
+        if (orderDTOList.isEmpty()) {
+            iOrderService.createCart(personId, productId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        OrderDetail orderDetail = iOrderDetailService.findByProductIdAndPersonId(productId, personId);
+        if (orderDetail != null) {
+            int quantity = orderDetail.getOrderedQuantity() + 1;
+            iOrderService.changeQuantity(orderDetail.getId(),quantity);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            Order order = iOrderService.findByPersonId(personId);
+            if(iOrderDetailService.addNewOrderDetail(new OrderDetail(1,new Product(productId),order))){
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @DeleteMapping("/deleteOrderDetail")
     public ResponseEntity<?> deleteOrderDetail(@RequestParam Long orderDetailId) {
@@ -103,7 +112,7 @@ public class ProductRestController {
     }
 
 
-    @GetMapping("/detail")
+    @GetMapping("product/detail")
     public ResponseEntity<?> detailProduct(@RequestParam Long productId) {
         Product product = iProductService.findProductById(productId);
         ProductDetail productDetail = new ProductDetail(product, new ArrayList<>(product.getImageSet()));

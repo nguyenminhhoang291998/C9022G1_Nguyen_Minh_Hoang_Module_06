@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         });
-        this.router.navigateByUrl('/homepage');
+        this.router.navigateByUrl('/');
         this.shareService.sendClickEvent();
       },
       err => {

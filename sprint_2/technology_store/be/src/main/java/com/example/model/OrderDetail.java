@@ -22,6 +22,12 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
+    public OrderDetail(int orderedQuantity, Product product, Order order) {
+        this.orderedQuantity = orderedQuantity;
+        this.product = product;
+        this.order = order;
+    }
+
     public OrderDetail(Long id, int orderedQuantity, Product product, Order order) {
         this.id = id;
         this.orderedQuantity = orderedQuantity;

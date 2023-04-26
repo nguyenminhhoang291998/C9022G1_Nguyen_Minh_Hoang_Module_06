@@ -24,7 +24,7 @@ export class CartService {
 
   addProduct(personId: number, idProduct: number) {
     return this.http.get<any>(
-      API_URL + '/addProduct?personId=' + personId + '&idProduct=' + idProduct);
+      API_URL + '/addProduct?personId=' + personId + '&productId=' + idProduct);
   }
 
   deleteOrderDetail(orderDetailId: number) {
