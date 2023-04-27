@@ -4,6 +4,8 @@ import {TokenStorageService} from '../../security-authentication/service/token-s
 import {ShareService} from '../../security-authentication/service/share.service';
 import {Router} from '@angular/router';
 import {LoginService} from '../../security-authentication/service/login.service';
+import {CartDetailComponent} from '../../cart/cart-detail/cart-detail.component';
+import {ShareDataService} from '../../service/share-data.service';
 
 @Component({
   selector: 'app-header',
@@ -17,11 +19,13 @@ export class HeaderComponent implements OnInit {
   accountName: string;
   role: string;
   isLoggedIn = false;
+  totalProduct: number;
 
   constructor(private tokenStorageService: TokenStorageService,
               private shareService: ShareService,
               private router: Router,
-              private loginService: LoginService) {
+              private loginService: LoginService,
+              private shareDataService: ShareDataService) {
     this.loadHeader();
   }
 
@@ -33,6 +37,9 @@ export class HeaderComponent implements OnInit {
     }
     this.isLoggedIn = this.username != null;
     this.getUsernameAccount();
+    this.shareDataService.getTotalProduct().subscribe(totalProduct => {
+      this.totalProduct = totalProduct;
+    });
   }
 
 
@@ -42,7 +49,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-   logOut() {
+  logOut() {
     this.loginService.logout().subscribe(async () => {
       this.tokenStorageService.signOut();
       this.shareService.sendClickEvent();

@@ -16,5 +16,4 @@ public interface IOrderDTO {
 
     String getUrl();
 
-    Double getTotalPrice();
 }

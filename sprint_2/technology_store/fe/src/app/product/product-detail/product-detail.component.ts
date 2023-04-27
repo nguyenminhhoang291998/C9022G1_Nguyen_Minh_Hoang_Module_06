@@ -6,6 +6,8 @@ import {Image} from '../../model/image';
 import Swal from 'sweetalert2';
 import {CartService} from '../../service/cart.service';
 import {TokenStorageService} from '../../security-authentication/service/token-storage.service';
+import {ShareDataService} from '../../service/share-data.service';
+import {ShareService} from '../../security-authentication/service/share.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -22,7 +24,9 @@ export class ProductDetailComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private productService: ProductService,
               private cartService: CartService,
-              private tokenStorageService: TokenStorageService) {
+              private tokenStorageService: TokenStorageService,
+              private shareDataService: ShareDataService,
+              private shareService: ShareService) {
   }
 
   ngOnInit(): void {
@@ -51,6 +55,9 @@ export class ProductDetailComponent implements OnInit {
         icon: 'success',
         showConfirmButton: false,
         timer: 1500
+      });
+      this.shareDataService.getTotalProduct().subscribe(totalProduct => {
+        this.shareService.sendClickEvent();
       });
     });
   }

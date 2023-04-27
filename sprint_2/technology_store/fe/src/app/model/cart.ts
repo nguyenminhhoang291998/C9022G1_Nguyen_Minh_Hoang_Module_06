@@ -6,6 +6,5 @@ export interface Cart {
   productName?: string;
   productPrice?: number;
   url?: string;
-  totalPrice?: number;
   orderDetailId?: number;
 }

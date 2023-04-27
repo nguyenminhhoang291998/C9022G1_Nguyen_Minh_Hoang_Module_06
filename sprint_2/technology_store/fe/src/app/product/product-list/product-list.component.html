@@ -23,18 +23,22 @@
       <div class="col-md-3 d-flex justify-content-center">
         <button (click)="search()"
                 class="btn" type="button"
-                style="text-align: center; size: 30px; border: 1px solid #b6effb;background-color: darkorange">
+                style="text-align: center; size: 30px; border: 1px solid #b6effb;background-color: #0a5dde; color: white; margin-right: 7%">
           Tìm kiếm
         </button>
-        <button (click)="search()"
+        <button (click)="sort()"
                 class="btn" type="button"
-                style="text-align: center; size: 30px; border: 1px solid #b6effb;background-color: darkorange">
+                style="text-align: center; size: 30px; border: 1px solid #b6effb;background-color: #0a5dde; color: white">
           Gần nhất
         </button>
       </div>
     </div>
+    <div *ngIf="productList.length == 0" style="height: 255px">
+      <h2 style="text-align: center; color: #3b5998">Không tìm thấy sản phẩm phù hợp
+      </h2>
+    </div>
 
-    <div class="row">
+    <div *ngIf="productList.length != 0" class="row">
       <div *ngFor="let product of productList" class="col-sm-6 col-lg-3 p-2">
         <div class="p-1 card" style="border-radius: 15px; box-shadow: 1px 1px 1px 1px #6e92b6 ">
           <div class="card text-black product-grid" style="border: none">
@@ -55,20 +59,23 @@
             <div class="row">
                 <h6 class="mb-1 pb-2">Số lượng: {{product.productQuantity}}</h6>
             </div>
+<!--            <div class="row">-->
+<!--              <h6 class="mb-1 pb-2">Ngày ra mắt: {{product.releaseDate}}</h6>-->
+<!--            </div>-->
           </div>
         </div>
       </div>
 
     </div>
 
-    <div class="row dis-flex justify-content-center">
+    <div *ngIf="productList.length != 0 && totalPages > 1" class="row dis-flex justify-content-center">
       <div class="col-md-2" style=" margin-bottom: 20px;margin-top: 5px">
         <nav aria-label="Page navigation example" style="float: right">
           <ul class="pagination">
             <li class="page-item">
-              <button [ngClass]="{disabled: currentPage === 0 }" style="background-color: darkorange"
+              <button [ngClass]="{disabled: currentPage === 0 }" style="background-color: #0a5dde"
                       (click)="previousPage()" class="btn" aria-label="Previous">
-                <span aria-hidden="true" style="color: black">Trước</span>
+                <span aria-hidden="true" style="color: #ffffff">Trước</span>
               </button>
             </li>
             <li class="page-item">
@@ -77,9 +84,9 @@
               </button>
             </li>
             <li class="page-item">
-              <button [ngClass]="{disabled: currentPage === totalPages - 1 }" style="background-color: darkorange"
+              <button [ngClass]="{disabled: currentPage === totalPages - 1 }" style="background-color: #0a5dde"
                       class="btn" (click)="nextPage()" aria-label="Next">
-                <span aria-hidden="true" style="color: black">Sau</span>
+                <span aria-hidden="true" style="color: #ffffff">Sau</span>
               </button>
             </li>
           </ul>

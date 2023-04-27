@@ -5,6 +5,7 @@ import {LoginService} from '../service/login.service';
 import {Router} from '@angular/router';
 import {TokenStorageService} from '../service/token-storage.service';
 import {ShareService} from '../service/share.service';
+import {ShareDataService} from '../../service/share-data.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService,
               private router: Router,
               private tokenStorageService: TokenStorageService,
-              private shareService: ShareService) {
+              private shareService: ShareService,
+              private shareDataService: ShareDataService) {
   }
 
   ngOnInit(): void {
@@ -47,7 +49,6 @@ export class LoginComponent implements OnInit {
       this.username = this.tokenStorageService.getUser().username;
     }
   }
-
 
   view(): void {
     const element = document.getElementById('login');
@@ -77,8 +78,10 @@ export class LoginComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         });
+        this.shareDataService.getTotalProduct().subscribe(totalProduct => {
+          this.shareService.sendClickEvent();
+        });
         this.router.navigateByUrl('/');
-        this.shareService.sendClickEvent();
       },
       err => {
         // this.errorMessage = err.error.message;

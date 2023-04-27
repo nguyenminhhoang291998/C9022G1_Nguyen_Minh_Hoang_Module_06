@@ -36,12 +36,10 @@ public class ProductRestController {
     public ResponseEntity<?> getAllProduct(@RequestParam(required = false, defaultValue = "0") int page,
                                            @RequestParam(required = false, defaultValue = "0") Long productTypeId,
                                            @RequestParam(required = false, defaultValue = "0") Long brandsId,
-                                           @RequestParam(required = false, defaultValue = "") String nameSearch) {
+                                           @RequestParam(required = false, defaultValue = "") String nameSearch,
+                                           @RequestParam(required = false, defaultValue = "false") boolean isSort) {
         Pageable pageable = PageRequest.of(page, 8);
-        Page<IProductDTO> productPage = iProductService.findAll(pageable, nameSearch, productTypeId, brandsId);
-        if (productPage.isEmpty()) {
-            return new ResponseEntity<>("Không tìm thấy dữ liệu!", HttpStatus.NOT_FOUND);
-        }
+        Page<IProductDTO> productPage = iProductService.findAll(pageable, nameSearch, productTypeId, brandsId, isSort);
         return new ResponseEntity<>(productPage, HttpStatus.OK);
     }
 

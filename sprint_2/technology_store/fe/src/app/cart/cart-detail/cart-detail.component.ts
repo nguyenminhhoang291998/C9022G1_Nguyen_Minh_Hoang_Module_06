@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {CartService} from '../../service/cart.service';
 import {Cart} from '../../model/cart';
 import Swal from 'sweetalert2';
+import {ShareDataService} from '../../service/share-data.service';
+import {ShareService} from '../../security-authentication/service/share.service';
 
 
 @Component({
@@ -13,14 +15,16 @@ import Swal from 'sweetalert2';
 })
 export class CartDetailComponent implements OnInit {
   personId: number;
-  cartList: Cart[];
+  cartList?: Cart[];
   totalPrice: number;
   totalProduct: number;
   productDelete: Cart;
 
   constructor(private tokenStorageService: TokenStorageService,
               private router: Router,
-              private cartService: CartService) {
+              private cartService: CartService,
+              private shareDataService: ShareDataService,
+              private shareService: ShareService) {
   }
 
   ngOnInit(): void {
@@ -30,7 +34,7 @@ export class CartDetailComponent implements OnInit {
   getPersonId() {
     if (this.tokenStorageService.getToken()) {
       this.personId = this.tokenStorageService.getUser().personId;
-      this.cartService.getAllBrands(this.personId).subscribe(data => {
+      this.cartService.getCart(this.personId).subscribe(data => {
         this.cartList = data;
         this.getQuantityAndTotalPrice();
       });
@@ -58,7 +62,7 @@ export class CartDetailComponent implements OnInit {
 
   getCart(orderDetailId: number, quantity: number) {
     this.cartService.changeQuantity(orderDetailId, quantity).subscribe(() => {
-      this.cartService.getAllBrands(this.personId).subscribe(data => {
+      this.cartService.getCart(this.personId).subscribe(data => {
         this.cartList = data;
         this.getQuantityAndTotalPrice();
       });
@@ -70,12 +74,17 @@ export class CartDetailComponent implements OnInit {
     this.totalPrice = 0;
     if (this.cartList) {
       // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < this.cartList.length; i++) {
+      for (let i = 0; i < this.cartList?.length; i++) {
         // @ts-ignore
         // tslint:disable-next-line:radix
         this.totalProduct += parseInt(this.cartList[i].orderedQuantity);
         this.totalPrice += (this.cartList[i].productPrice * this.cartList[i].orderedQuantity);
       }
+      this.shareDataService.getTotalProduct().subscribe(totalProduct => {
+        this.totalProduct = totalProduct;
+        this.shareService.sendClickEvent();
+      });
+      console.log(this.cartList);
     }
   }
 
@@ -103,4 +112,5 @@ export class CartDetailComponent implements OnInit {
       });
     });
   }
+
 }

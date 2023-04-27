@@ -12,7 +12,7 @@ export class CartService {
   constructor(private http: HttpClient) {
   }
 
-  getAllBrands(id: number): Observable<any> {
+  getCart(id: number): Observable<any> {
     return this.http.get<any>(
       API_URL + '/cart?id=' + id);
   }

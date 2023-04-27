@@ -15,15 +15,23 @@ public class ProductService implements IProductService {
     private IProductRepository iProductRepository;
 
     @Override
-    public Page<IProductDTO> findAll(Pageable pageable, String nameSearch, Long productTypeId, Long brandsId) {
-        if(productTypeId == 0 && brandsId == 0) {
+    public Page<IProductDTO> findAll(Pageable pageable, String nameSearch, Long productTypeId, Long brandsId, boolean isSort) {
+        if(productTypeId == 0 && brandsId == 0 && !isSort) {
             return iProductRepository.getAllByName(pageable, nameSearch);
-        } else if(productTypeId == 0) {
+        } else if(productTypeId == 0 && brandsId == 0) {
+            return iProductRepository.getAllByNameAndSort(pageable, nameSearch);
+        } else if(productTypeId == 0 && !isSort) {
             return iProductRepository.getAllByNameAndBrands(pageable, nameSearch, brandsId);
-        } else if (brandsId == 0) {
+        } else if(productTypeId == 0) {
+            return iProductRepository.getAllByNameAndBrandsAndSort(pageable, nameSearch, brandsId);
+        }else if (brandsId == 0 && !isSort) {
             return iProductRepository.getAllByNameAndProductType(pageable, nameSearch, productTypeId);
+        }else if (brandsId == 0) {
+            return iProductRepository.getAllByNameAndProductTypeAndSort(pageable, nameSearch, productTypeId);
+        } else if (!isSort) {
+            return iProductRepository.getAllByNameAndProductTypeAndBrands(pageable, nameSearch, productTypeId, brandsId);
         }
-        return iProductRepository.getAllByNameAndProductTypeAndBrands(pageable, nameSearch, productTypeId, brandsId);
+        return iProductRepository.getAllByNameAndProductTypeAndBrandsAndSort(pageable, nameSearch, productTypeId, brandsId);
     }
 
     @Override

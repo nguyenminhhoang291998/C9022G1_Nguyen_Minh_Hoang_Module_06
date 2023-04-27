@@ -13,10 +13,10 @@ export class ProductService {
   constructor(private http: HttpClient) {
   }
 
-  getAllProduct(page: number, nameSearch: string, productTypeId: number, brandsId: number): Observable<any> {
+  getAllProduct(page: number, nameSearch: string, productTypeId: number, brandsId: number, isSort: boolean): Observable<any> {
     return this.http.get<any>(
       API_URL + '/list?page=' + page + '&productTypeId=' + productTypeId +
-      '&brandsId=' + brandsId + '&nameSearch=' + nameSearch);
+      '&brandsId=' + brandsId + '&nameSearch=' + nameSearch + '&isSort=' + isSort);
   }
 
   getProductDetail(id: number): Observable<ProductDetail> {
