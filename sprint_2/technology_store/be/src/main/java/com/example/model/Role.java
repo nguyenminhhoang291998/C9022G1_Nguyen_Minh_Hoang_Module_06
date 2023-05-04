@@ -21,6 +21,10 @@ public class Role {
     public Role() {
     }
 
+    public Role(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Role(Long id, String name, Set<AccountRole> accountRoleSet) {
         this.id = id;

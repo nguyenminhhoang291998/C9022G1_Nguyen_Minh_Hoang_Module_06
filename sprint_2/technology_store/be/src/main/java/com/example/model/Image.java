@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Image {
+public class Image{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -50,4 +50,5 @@ public class Image {
     public void setProduct(Product product) {
         this.product = product;
     }
+
 }
