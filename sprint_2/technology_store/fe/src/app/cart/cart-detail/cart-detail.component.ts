@@ -28,33 +28,76 @@ export class CartDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPersonId();
+    this.getPersonInfo();
   }
 
-  getPersonId() {
-    if (this.tokenStorageService.getToken()) {
-      this.personId = this.tokenStorageService.getUser().personId;
-      this.cartService.getCart(this.personId).subscribe(data => {
-        this.cartList = data;
-        this.getQuantityAndTotalPrice();
-      });
-    } else {
-      this.router.navigateByUrl('/security/login');
-    }
+   getPersonInfo() {
+    this.cartService.getCart().subscribe(async data => {
+      this.cartList = data;
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < this.cartList?.length; i++) {
+        if (this.cartList[i].orderedQuantity > this.cartList[i].productQuantity) {
+          await Swal.fire({
+            text: 'Rất tiếc, sản phẩm ' + this.cartList[i].productName + ' hiện tại số lượng chỉ còn ' + this.cartList[i].productQuantity,
+            icon: 'error',
+            confirmButtonText: 'ok',
+            allowOutsideClick: false,
+            allowEscapeKey: false
+          });
+          this.getCart(this.cartList[i].orderDetailId, this.cartList[i].productQuantity);
+        }
+      }
+      this.getQuantityAndTotalPrice();
+    });
   }
 
   changQuantity(event, cart: Cart) {
-    cart.orderedQuantity = event.target.value;
-    this.getCart(cart.orderDetailId, cart.orderedQuantity);
+    const newQuantity = event.target.value;
+    if (newQuantity.isNaN || newQuantity < 1) {
+      Swal.fire({
+        text: 'Số lượng không hợp lệ',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.getCart(cart.orderDetailId, cart.orderedQuantity);
+    } else if (newQuantity >= cart.productQuantity) {
+      Swal.fire({
+        text: 'Rất tiếc, sản phẩm ' + cart.productName + ' hiện tại số lượng chỉ còn ' + cart.productQuantity,
+        icon: 'warning',
+        showConfirmButton: false,
+        timer: 3000
+      });
+      this.getCart(cart.orderDetailId, cart.productQuantity);
+    } else {
+      this.getCart(cart.orderDetailId, newQuantity);
+    }
   }
 
   inc(cart: Cart) {
-    cart.orderedQuantity++;
-    this.getCart(cart.orderDetailId, cart.orderedQuantity);
+    if (cart.orderedQuantity === cart.productQuantity) {
+      Swal.fire({
+        text: 'Rất tiếc, sản phẩm ' + cart.productName + ' hiện tại số lượng chỉ còn ' + cart.productQuantity,
+        icon: 'warning',
+        showConfirmButton: false,
+        timer: 3000
+      });
+      this.getCart(cart.orderDetailId, cart.productQuantity);
+    } else {
+      cart.orderedQuantity++;
+      this.getCart(cart.orderDetailId, cart.orderedQuantity);
+    }
   }
 
   desc(cart: Cart) {
-    if (cart.orderedQuantity > 1) {
+    if (cart.orderedQuantity <= 1) {
+      Swal.fire({
+        text: 'Số lượng phải lớn hơn 0',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    } else {
       cart.orderedQuantity--;
       this.getCart(cart.orderDetailId, cart.orderedQuantity);
     }
@@ -62,7 +105,7 @@ export class CartDetailComponent implements OnInit {
 
   getCart(orderDetailId: number, quantity: number) {
     this.cartService.changeQuantity(orderDetailId, quantity).subscribe(() => {
-      this.cartService.getCart(this.personId).subscribe(data => {
+      this.cartService.getCart().subscribe(data => {
         this.cartList = data;
         this.getQuantityAndTotalPrice();
       });
@@ -73,13 +116,7 @@ export class CartDetailComponent implements OnInit {
     this.totalProduct = 0;
     this.totalPrice = 0;
     if (this.cartList) {
-      // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < this.cartList?.length; i++) {
-        // @ts-ignore
-        // tslint:disable-next-line:radix
-        this.totalProduct += parseInt(this.cartList[i].orderedQuantity);
-        this.totalPrice += (this.cartList[i].productPrice * this.cartList[i].orderedQuantity);
-      }
+      this.totalPrice = this.cartList[0].totalPrice;
       this.shareDataService.getTotalProduct().subscribe(totalProduct => {
         this.totalProduct = totalProduct;
         this.shareService.sendClickEvent();
@@ -111,7 +148,7 @@ export class CartDetailComponent implements OnInit {
         this.totalProduct = totalProduct;
         this.shareService.sendClickEvent();
       });
-      this.getPersonId();
+      this.getPersonInfo();
     }, error => {
       Swal.fire({
         text: 'Đã có lỗi xảy ra. Xóa sản phẩm thất bại!',
@@ -121,5 +158,4 @@ export class CartDetailComponent implements OnInit {
       });
     });
   }
-
 }

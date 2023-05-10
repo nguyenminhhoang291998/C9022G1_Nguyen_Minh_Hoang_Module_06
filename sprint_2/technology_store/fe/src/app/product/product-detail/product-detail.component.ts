@@ -8,6 +8,7 @@ import {CartService} from '../../service/cart.service';
 import {TokenStorageService} from '../../security-authentication/service/token-storage.service';
 import {ShareDataService} from '../../service/share-data.service';
 import {ShareService} from '../../security-authentication/service/share.service';
+import {Cart} from '../../model/cart';
 
 @Component({
   selector: 'app-product-detail',
@@ -20,6 +21,9 @@ export class ProductDetailComponent implements OnInit {
   imageList: Image[];
   imageMain: string;
   personId: number;
+  cartList?: Cart[];
+  quantityAllowed: number;
+  quantityInput = 1;
 
   constructor(private activatedRoute: ActivatedRoute,
               private productService: ProductService,
@@ -37,9 +41,18 @@ export class ProductDetailComponent implements OnInit {
         this.productDetail = data.product;
         this.imageList = data.imageList;
         this.imageMain = this.imageList[0].url;
-        console.log(data);
-        console.log(this.productDetail);
-        console.log(this.imageList);
+        this.cartService.getCart().subscribe(cartList => {
+          this.cartList = cartList;
+          // tslint:disable-next-line:prefer-for-of
+          for (let i = 0; i < this.cartList?.length; i++) {
+            if (this.cartList[i].productId === this.detailProductId) {
+              this.quantityAllowed = this.productDetail.productQuantity - this.cartList[i].orderedQuantity;
+              break;
+            } else {
+              this.quantityAllowed = this.productDetail.productQuantity;
+            }
+          }
+        });
       });
     });
   }
@@ -49,7 +62,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addProduct(idProduct: number) {
-    this.cartService.addProduct(this.personId, idProduct).subscribe(() => {
+    this.cartService.addProduct(idProduct, this.quantityInput).subscribe(() => {
       Swal.fire({
         text: 'Sản phẩm đã được thêm vào giỏ hàng',
         icon: 'success',
@@ -65,6 +78,65 @@ export class ProductDetailComponent implements OnInit {
       this.shareDataService.getTotalProduct().subscribe(totalProduct => {
         this.shareService.sendClickEvent();
       });
+    }, error => {
+      Swal.fire({
+        text: error.error,
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1500
+      });
     });
+  }
+
+  desc() {
+    if (this.quantityInput <= 1) {
+      Swal.fire({
+        text: 'Số lượng phải lớn hơn 0',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    } else {
+      this.quantityInput--;
+    }
+  }
+
+  inc() {
+    console.log(this.quantityAllowed);
+    if (this.quantityInput === this.quantityAllowed) {
+      Swal.fire({
+        text: 'Rất tiếc, số lượng sản phẩm này trong kho chỉ còn ' + this.productDetail.productQuantity,
+        icon: 'warning',
+        showConfirmButton: false,
+        timer: 3000
+      });
+    } else {
+      this.quantityInput++;
+    }
+  }
+
+  changQuantity(event) {
+    const newQuantity = event.target.value;
+    if (newQuantity.isNaN || newQuantity < 1) {
+      Swal.fire({
+        text: 'Số lượng không hợp lệ',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.quantityInput = 1;
+    } else if (newQuantity > this.quantityAllowed) {
+      Swal.fire({
+        text: 'Rất tiếc, số lượng sản phẩm này trong kho chỉ còn ' + this.productDetail.productQuantity,
+        icon: 'warning',
+        showConfirmButton: false,
+        timer: 3000
+      });
+      this.quantityInput = this.quantityAllowed;
+      event.target.value = this.quantityInput;
+    } else {
+      this.quantityInput = newQuantity;
+      event.target.value = this.quantityInput;
+    }
   }
 }

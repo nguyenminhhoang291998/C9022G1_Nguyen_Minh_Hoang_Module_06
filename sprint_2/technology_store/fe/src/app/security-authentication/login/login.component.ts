@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', [Validators.required]),
       rememberMe: new FormControl()
     });
-    debugger
     this.shareService.sendClickEvent();
   }
 

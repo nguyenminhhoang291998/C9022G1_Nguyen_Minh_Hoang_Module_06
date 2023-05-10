@@ -52,6 +52,7 @@ export class ProductListComponent implements OnInit {
         this.productService.getAllProduct(this.currentPage, this.nameProduct, this.productType, this.brands, this.isSort)
           .subscribe(data => {
             this.productList = data.content;
+            console.log(this.productList);
             this.totalPages = data.totalPages;
           });
       });
@@ -87,7 +88,7 @@ export class ProductListComponent implements OnInit {
   }
 
   addProduct(idProduct: number) {
-    this.cartService.addProduct(this.personId, idProduct).subscribe(() => {
+    this.cartService.addProduct(idProduct, 1).subscribe(() => {
       Swal.fire({
         text: 'Sản phẩm đã được thêm vào giỏ hàng',
         icon: 'success',
@@ -102,6 +103,13 @@ export class ProductListComponent implements OnInit {
       });
       this.shareDataService.getTotalProduct().subscribe(totalProduct => {
         this.shareService.sendClickEvent();
+      });
+    }, error => {
+       Swal.fire({
+        text: error.error,
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1500
       });
     });
   }

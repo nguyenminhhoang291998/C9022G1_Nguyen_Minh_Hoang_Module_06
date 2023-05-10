@@ -13,9 +13,10 @@ public class JwtUtility implements Serializable {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtility.class);
     private String jwtSecret = "secretkey";
 
-    public String generateJwtToken(String username) {
+    public String generateJwtToken(String username, Long personId) {
         return Jwts.builder()
                 .setSubject(username)
+                .claim("personId", personId)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + (100 * 60 * 60 * 24)))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
@@ -24,6 +25,10 @@ public class JwtUtility implements Serializable {
 
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public Long getIdFromJwtToken(String token) {
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().get("personId", Long.class);
     }
 
     public boolean validateJwtToken(String authToken) {

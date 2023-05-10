@@ -15,8 +15,7 @@ export class CustomerGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.token.getToken()) {
-      if ((this.token.getRole() === 'ROLE_ADMIN' || this.token.getRole() === 'ROLE_CUSTOMER' || this.token.getRole() === 'ROLE_EMPLOYEE')
-        && this.token.isLogger()) {
+      if (this.token.getRole() === 'ROLE_CUSTOMER') {
         return true;
       } else {
         this.router.navigateByUrl('/error');

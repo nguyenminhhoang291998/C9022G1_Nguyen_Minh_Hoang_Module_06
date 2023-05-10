@@ -38,4 +38,9 @@ public class ProductService implements IProductService {
     public Product findProductById(Long productId) {
         return iProductRepository.findProductById(productId);
     }
+
+    @Override
+    public void changeProductQuantity(Long productId, int newProductQuantity) {
+        iProductRepository.changeProductQuantity(productId,newProductQuantity);
+    }
 }

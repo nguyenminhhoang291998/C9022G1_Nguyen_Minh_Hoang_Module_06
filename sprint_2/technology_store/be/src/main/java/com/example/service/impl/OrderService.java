@@ -10,12 +10,6 @@ import com.example.repository.IOrderRepository;
 import com.example.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -52,19 +46,42 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public void createCart(Long personId, Long idProduct) {
+    public void createCart(Long personId, Long idProduct, int quantity) {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = formatter.format(date);
         Person person = new Person(personId);
         Order order = new Order(dateString,person);
         iOrderRepository.save(order);
-        iOrderDetailRepository.save(new OrderDetail(1,new Product(idProduct),order));
+        iOrderDetailRepository.save(new OrderDetail(quantity,new Product(idProduct),order));
     }
 
     @Override
     public Order findByPersonId(Long personId) {
         return iOrderRepository.findByPersonId(personId);
+    }
+
+    @Override
+    public boolean paymentOrder(Long personId) {
+        if(findByPersonId(personId) != null){
+            try {
+                iOrderRepository.paymentOrder(personId);
+                return true;
+            }catch (Exception e) {
+                return false;
+            }
+        }
+      return false;
+    }
+
+    @Override
+    public List<IOrderDTO> getOrderHistory(Long personId) {
+        return iOrderRepository.getOrderHistory(personId);
+    }
+
+    @Override
+    public List<IOrderDTO> getOrderHistoryDetail(Long personId, Long orderId) {
+        return iOrderRepository.getOrderHistoryDetail(personId, orderId);
     }
 
 }

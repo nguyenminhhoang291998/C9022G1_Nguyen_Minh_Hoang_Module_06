@@ -1,0 +1,40 @@
+<section style="background-color: #eee;">
+  <div class="container h-100 py-4 px-4">
+    <h1 class="text-center">Thông tin cá nhân</h1>
+    <div class="row my-3 mt-4">
+      <div class="col-5"><h4>Tên:</h4></div>
+      <div class="col-7"><h4>{{person?.name}}</h4></div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-5"><h4>Ngày sinh:</h4></div>
+      <div class="col-7"><h4>{{person?.dateOfBirth  | date:'dd/MM/yyyy'}}</h4></div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-5"><h4>Giới tính:</h4></div>
+      <div *ngIf="person?.gender" class="col-7"><h4>Nam</h4></div>
+      <div *ngIf="!person?.gender" class="col-7"><h4>Nữ</h4></div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-5"><h4>Số CMND:</h4></div>
+      <div class="col-7"><h4>{{person?.idCard}}</h4></div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-5"><h4>Email:</h4></div>
+      <div class="col-7"><h4>{{person?.email}}</h4></div>
+    </div>
+    <div class="row my-3">
+      <div class="col-5"><h4>Số điện thoại:</h4></div>
+      <div class="col-7"><h4>{{person?.phoneNumber}}</h4></div>
+    </div>
+
+    <div class="row my-3">
+      <div class="col-5"><h4>Địa chỉ:</h4></div>
+      <div class="col-7"><h4>{{person?.address}}</h4></div>
+    </div>
+
+  </div>
+</section>

@@ -13,6 +13,8 @@ import {AuthInterceptor} from './security-authentication/security-auth/auth.inte
 import {ProductModule} from './product/product.module';
 import {DecimalPipe} from '@angular/common';
 import { PayComponent } from './common/pay/pay.component';
+import {OrderHistoryModule} from './order-history/order-history.module';
+import { PersonalInformationComponent } from './personal-information/personal-information.component';
 
 @NgModule({
   declarations: [
@@ -21,13 +23,15 @@ import { PayComponent } from './common/pay/pay.component';
     FooterComponent,
     HomePageComponent,
     ErrorPageComponent,
-    PayComponent
+    PayComponent,
+    PersonalInformationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     CartModule,
+    OrderHistoryModule,
     ProductModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, DecimalPipe],

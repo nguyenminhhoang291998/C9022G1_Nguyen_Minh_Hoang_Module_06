@@ -2,41 +2,83 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.function.Consumer;
 
 public class Main {
 
 
     public static void main(String []arg){
-//        int n = 5;
-//        for (int i = 0; i < n ; i++) {
-//            for (int j = n - i; j > 0 ; j--) {
-//                System.out.print(" ");
-//            }
-//            for (int k = 0; k < 2*i + 1; k++) {
-//                System.out.print("*");
-//            }
+//      Set<Integer> set = new TreeSet<>();
+//        String ta = "A ";
+//        String z = ta;
+//        ta = ta.concat("B ");
+//        System.out.println(z.equals(ta));
 //
-//            System.out.println();
+//        String tb = "C ";
+//        ta = ta.concat(tb);
+//
+//        String l = ta;
+//        ta.replace('C','D');
+//        System.out.println(l.equals(ta));
+//
+//        ta = ta.concat(tb);
+//        System.out.println(ta);
+//        StringBuilder sb = new StringBuilder(5);
+//        String s = "";
+//        if(sb.equals(s)) {
+//            System.out.println("1");
+//        }else if(sb.toString().equals(s.toString())) {
+//            System.out.println("2");
+//        }else {
+//            System.out.println("3");
 //        }
+//
+//        List<Person> personList = new ArrayList<>();
+//        personList.add(new Person("2008-05-08"));
+//
+//        LocalDate now = LocalDate.now();
+//        List<Person> result = new ArrayList<>();
+//        for (Person person : personList) {
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//            LocalDate birthDate = LocalDate.parse(person.getDateOfBirth(),formatter);
+//            if (Period.between(birthDate, now).getYears() >= 15) {
+//                result.add(person);
+//            }
+//        }
+//        result.forEach(e -> System.out.println(e.getDateOfBirth()));
+        int[] arr = {9, 5, 7, 2, 9, 1, 10, 9, 10, 5};
+        int thirdLargest = findThirdLargest(arr);
+        System.out.println("Số lớn thứ 3 trong mảng là: " + thirdLargest);
+    }
 
-//        int[] array = {1,4,5,2};
-//        TreeSet<Integer> set = new TreeSet<Integer>();
-//        for (int i = 0; i < array.length; i++) {
-//            set.add(array[i]);
-//        }
-//        System.out.println(set.toArray()[set.size() -2]);
-        HocSinh hocSinh = new HocSinh("John Doe", 30);
-        try {
-            FileOutputStream fileOut = new FileOutputStream("person.csv");
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-            objectOut.writeObject(hocSinh);
-            objectOut.close();
-            System.out.println("Đã lưu đối tượng vào file thành công!");
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static int findThirdLargest(int[] arr) {
+        if (arr.length < 3) {
+            throw new IllegalArgumentException("Mảng phải có ít nhất 3 phần tử");
         }
 
+        int first = Integer.MIN_VALUE;  // Số lớn nhất
+        int second = Integer.MIN_VALUE; // Số lớn thứ hai
+        int third = Integer.MIN_VALUE;  // Số lớn thứ ba
+
+        for (int j : arr) {
+            if (j > first) {
+                third = second;
+                second = first;
+                first = j;
+            } else if (j > second && j < first) {
+                third = second;
+                second = j;
+            } else if (j > third && j < second) {
+                third = j;
+            }
+        }
+
+        return third;
     }
 
     public static boolean check(String input) {

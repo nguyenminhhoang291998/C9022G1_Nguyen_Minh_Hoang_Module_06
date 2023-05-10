@@ -9,4 +9,6 @@ public interface IProductService {
     Page<IProductDTO> findAll(Pageable pageable, String nameSearch, Long productTypeId, Long brandsId, boolean isSort);
 
     Product findProductById(Long productId);
+
+    void changeProductQuantity(Long productId, int newProductQuantity);
 }

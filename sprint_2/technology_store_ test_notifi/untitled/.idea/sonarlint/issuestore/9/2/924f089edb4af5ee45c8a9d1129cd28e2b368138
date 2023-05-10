@@ -1,15 +1,0 @@
-
-t	java:S127/"XRefactor the code in order to not assign to this loop counter from within the loop body.(¥Ú‰8‡ÅÖµü0
-7
-java:S1220""Move this file to a named package.8ŠÅÖµü0
-m
-java:S2095 "PUse try-with-resources or close this "ObjectOutputStream" in a "finally" clause.(³äÇ•8ÈÅÖµü0
-p
-java:S2095"NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(ìÆ™‹ùÿÿÿÿ8ÊÅÖµü0
-W	java:S125"<This block of commented-out lines of code should be removed.(Æ±ÛW8áÅÖµü0
-X	java:S125"<This block of commented-out lines of code should be removed.(ÑûÊ±8şÅÖµü0
-U	java:S106#"9Replace this use of System.out or System.err by a logger.(İóÄ¬8ÆÖµü0
-\
-java:S1128":Remove this unused import 'java.io.FileNotFoundException'.(·î™ùÿÿÿÿ8›ÆÖµü0
-C
-java:S1128"&Remove this unused import 'java.util'.(Î€ŒÙ8œÆÖµü0

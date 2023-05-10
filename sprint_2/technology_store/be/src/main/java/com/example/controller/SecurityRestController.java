@@ -48,9 +48,9 @@ public class SecurityRestController {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
         Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtility.generateJwtToken(loginRequest.getUsername());
         AccountDetails userDetails = (AccountDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Account account = accountService.findAccountByEmployeeEmail(userDetails.getUsername());
+        String jwt = jwtUtility.generateJwtToken(loginRequest.getUsername(),account.getId());
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());

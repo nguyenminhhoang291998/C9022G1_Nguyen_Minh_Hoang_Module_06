@@ -22,8 +22,7 @@ export class ShareDataService {
   getTotalProduct(): Observable<number> {
     return new Observable<number>((observer) => {
       if (this.tokenStorageService.getToken()) {
-        this.personId = this.tokenStorageService.getUser().personId;
-        this.cartService.getCart(this.personId).subscribe(data => {
+        this.cartService.getCart().subscribe(data => {
           this.cartList = data;
           this.getQuantityAndTotalPrice();
           observer.next(this.totalProduct);
@@ -41,12 +40,8 @@ export class ShareDataService {
     this.totalPrice = 0;
     this.totalProduct = 0;
     if (this.cartList) {
-      // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < this.cartList.length; i++) {
-        // tslint:disable-next-line:radix
-        this.totalProduct += parseInt(String(this.cartList[i].orderedQuantity));
-        this.totalPrice += (this.cartList[i].productPrice * this.cartList[i].orderedQuantity);
-      }
+      this.totalPrice = this.cartList[0]?.totalPrice;
+      this.totalProduct = this.cartList[0]?.totalQuantity;
     }
   }
 

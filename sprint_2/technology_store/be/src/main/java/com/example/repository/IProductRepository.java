@@ -5,6 +5,7 @@ import com.example.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 public interface IProductRepository extends JpaRepository<Product,Long> {
@@ -102,4 +103,8 @@ public interface IProductRepository extends JpaRepository<Product,Long> {
             "JOIN brands b ON p.brands_id = b.id where p.name like %:nameSearch% and p.product_type_id = :productTypeId and p.brands_id = :brandsId  and p.product_quantity > 0 \n" +
             "GROUP BY p.id ORDER BY p.release_date DESC",nativeQuery = true)
     Page<IProductDTO> getAllByNameAndProductTypeAndBrandsAndSort(Pageable pageable, String nameSearch, Long productTypeId, Long brandsId);
+
+    @Modifying
+    @Query(value = "UPDATE product SET product_quantity = ?2 WHERE id = ?1",nativeQuery = true)
+    void changeProductQuantity(Long productId, int newProductQuantity);
 }

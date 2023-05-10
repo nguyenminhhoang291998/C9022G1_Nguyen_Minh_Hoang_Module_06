@@ -1,6 +1,6 @@
 <section style="background-color: #eee;">
   <div class="container p-3">
-    <h1 style="text-align: center; margin: 2%">Tất cả sản phẩm</h1>
+    <h1 style="text-align: center; margin: 1%;">Tất cả sản phẩm</h1>
     <div class="row my-3">
       <div class="col-md-3 d-flex justify-content-center">
         <input class="form-control" type="text" [(ngModel)]="nameProduct" placeholder="Nhập tên sản phẩm...">
@@ -33,7 +33,7 @@
         </button>
       </div>
     </div>
-    <div *ngIf="!productList" style="height: 255px">
+    <div *ngIf="productList?.length === 0" style="height: 255px">
       <h2 style="text-align: center; color: #3b5998">Không tìm thấy sản phẩm phù hợp
       </h2>
     </div>

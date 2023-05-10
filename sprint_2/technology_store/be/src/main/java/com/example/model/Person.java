@@ -18,7 +18,7 @@ public class Person {
     private String dateOfBirth;
 
     @Column(length = 20, nullable = false, unique = true)
-    private String phoneNumber;
+        private String phoneNumber;
 
     @Column(length = 45, nullable = false, unique = true)
     private String idCard;

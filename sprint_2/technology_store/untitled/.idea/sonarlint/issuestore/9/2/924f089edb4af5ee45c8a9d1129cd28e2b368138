@@ -1,15 +1,27 @@
 
-t	java:S127/"XRefactor the code in order to not assign to this loop counter from within the loop body.(¥Ú‰8‡ÅÖµü0
+t	java:S127Y"XRefactor the code in order to not assign to this loop counter from within the loop body.(¥Ú‰8²€Õ£€1
 7
-java:S1220""Move this file to a named package.8ŠÅÖµü0
-m
-java:S2095 "PUse try-with-resources or close this "ObjectOutputStream" in a "finally" clause.(³äÇ•8ÈÅÖµü0
-p
-java:S2095"NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(ìÆ™‹ùÿÿÿÿ8ÊÅÖµü0
-W	java:S125"<This block of commented-out lines of code should be removed.(Æ±ÛW8áÅÖµü0
-X	java:S125"<This block of commented-out lines of code should be removed.(ÑûÊ±8şÅÖµü0
-U	java:S106#"9Replace this use of System.out or System.err by a logger.(İóÄ¬8ÆÖµü0
+java:S1220""Move this file to a named package.8¸€Õ£€1
+X	java:S125"<This block of commented-out lines of code should be removed.(ÃêãÀ8«Õ£€1
+U	java:S1068"9Replace this use of System.out or System.err by a logger.(™˜à«8­Õ£€1
 \
-java:S1128":Remove this unused import 'java.io.FileNotFoundException'.(·î™ùÿÿÿÿ8›ÆÖµü0
+java:S1128":Remove this unused import 'java.io.FileNotFoundException'.(·î™ùÿÿÿÿ8ÅÕ£€1
+Q
+java:S1128"5Remove this unused import 'java.io.FileOutputStream'.(˜«ªg8ÅÕ£€1
+R
+java:S1128"0Remove this unused import 'java.io.IOException'.(ªº»Úıÿÿÿÿ8ÅÕ£€1
+Y
+java:S1128"7Remove this unused import 'java.io.ObjectOutputStream'.(é»Óºûÿÿÿÿ8ÆÕ£€1
+T
+java:S1128"7Remove this unused import 'java.text.SimpleDateFormat'.(ú¡ÙÛ8ËÕ£€1
+R
+java:S1128"0Remove this unused import 'java.time.LocalDate'.(›‘¬èıÿÿÿÿ8ËÕ£€1
+J
+java:S1128"-Remove this unused import 'java.time.Period'.(šÉ¢½8ËÕ£€1
+\
+java:S1128"?Remove this unused import 'java.time.format.DateTimeFormatter'.(‰÷÷ª8ÌÕ£€1
 C
-java:S1128"&Remove this unused import 'java.util'.(Î€ŒÙ8œÆÖµü0
+java:S1128	"&Remove this unused import 'java.util'.(Î€ŒÙ8ÌÕ£€1
+Z
+java:S1128
+"8Remove this unused import 'java.util.function.Consumer'.(Ì†ƒÔùÿÿÿÿ8ÌÕ£€1

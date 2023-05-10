@@ -17,7 +17,7 @@
             </div>
             <div class="col-3 d-flex justify-content-center align-items-center">
               <button class="change" (click)="desc(cart)">-</button>
-              <input id="quantity" (change)="changQuantity($event,cart)" value="{{cart.orderedQuantity}}">
+              <input type="number" class="no-spinners" id="quantity" (change)="changQuantity($event,cart)" value="{{cart.orderedQuantity}}">
               <button class="change" (click)="inc(cart)">+</button>
             </div>
             <div class="col-3">{{cart.productPrice | number:'1.0-0' }} đ

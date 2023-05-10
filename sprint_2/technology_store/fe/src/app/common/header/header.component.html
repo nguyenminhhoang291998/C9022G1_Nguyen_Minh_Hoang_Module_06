@@ -29,7 +29,7 @@
 
       <ul class="navbar-nav col-md-4 justify-content-end px-5">
 
-        <li *ngIf="isLoggedIn" class="d-flex button-logout">
+        <li *ngIf="isLoggedIn && role === 'ROLE_CUSTOMER'" class="d-flex button-logout">
           <a routerLink="/cart" style="text-decoration: none" role="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
                  class="bi bi-cart3" viewBox="0 0 16 16">
@@ -44,8 +44,11 @@
           <div class="dropdownUser">
             <h4 style="color: #2e5ec4"><b>{{accountName}}</b></h4>
             <div class="dropdown-content p-0">
-              <div class="getstarted" routerLink="/security/change-password">
-                <button class="btn">Đổi mật khẩu</button>
+              <div class="getstarted" routerLink="/history/list">
+                <button class="btn">Lịch sử đặt hàng</button>
+              </div>
+              <div class="getstarted" routerLink="/personal-information">
+                <button class="btn">Thông tin cá nhân</button>
               </div>
               <div class="getstarted" (click)="logOut()">
                 <button class="btn">Đăng xuất</button>

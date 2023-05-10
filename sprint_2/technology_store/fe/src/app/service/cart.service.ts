@@ -12,9 +12,19 @@ export class CartService {
   constructor(private http: HttpClient) {
   }
 
-  getCart(id: number): Observable<any> {
+  getCart(): Observable<any> {
     return this.http.get<any>(
-      API_URL + '/cart?id=' + id);
+      API_URL + '/cart');
+  }
+
+  getOrderHistory(): Observable<any> {
+    return this.http.get<any>(
+      API_URL + '/order-history-list');
+  }
+
+  getOrderHistoryDetail(orderId: number): Observable<any> {
+    return this.http.get<any>(
+      API_URL + '/order-history-detail?orderId=' + orderId);
   }
 
   changeQuantity(orderDetailId: number, quantity: number) {
@@ -22,13 +32,19 @@ export class CartService {
       API_URL + '/changeQuantity?orderDetailId=' + orderDetailId + '&quantity=' + quantity);
   }
 
-  addProduct(personId: number, idProduct: number) {
+  addProduct(idProduct: number, quantity: number) {
     return this.http.get<any>(
-      API_URL + '/addProduct?personId=' + personId + '&productId=' + idProduct);
+      API_URL + '/addProduct?productId=' + idProduct + '&quantity=' + quantity);
   }
 
   deleteOrderDetail(orderDetailId: number) {
     return this.http.delete<any>(
       API_URL + '/deleteOrderDetail?orderDetailId=' + orderDetailId);
+  }
+
+
+  paymentOrder() {
+    return this.http.get<any>(
+      API_URL + '/payment');
   }
 }
