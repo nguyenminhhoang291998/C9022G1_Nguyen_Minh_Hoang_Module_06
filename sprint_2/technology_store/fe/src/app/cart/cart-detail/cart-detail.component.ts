@@ -37,14 +37,27 @@ export class CartDetailComponent implements OnInit {
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.cartList?.length; i++) {
         if (this.cartList[i].orderedQuantity > this.cartList[i].productQuantity) {
-          await Swal.fire({
-            text: 'Rất tiếc, sản phẩm ' + this.cartList[i].productName + ' hiện tại số lượng chỉ còn ' + this.cartList[i].productQuantity,
-            icon: 'error',
-            confirmButtonText: 'ok',
-            allowOutsideClick: false,
-            allowEscapeKey: false
-          });
-          this.getCart(this.cartList[i].orderDetailId, this.cartList[i].productQuantity);
+          if (this.cartList[i].productQuantity === 0) {
+            await Swal.fire({
+              text: 'Rất tiếc, sản phẩm ' + this.cartList[i].productName + ' hiện tại đã hết hàng.',
+              icon: 'error',
+              confirmButtonText: 'ok',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+            });
+            await this.cartService.deleteOrderDetail(this.cartList[i].orderDetailId).subscribe(() => {
+              this.ngOnInit();
+            });
+          } else {
+            await Swal.fire({
+              text: 'Rất tiếc, sản phẩm ' + this.cartList[i].productName + ' hiện tại số lượng chỉ còn ' + this.cartList[i].productQuantity,
+              icon: 'error',
+              confirmButtonText: 'ok',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+            });
+            this.getCart(this.cartList[i].orderDetailId, this.cartList[i].productQuantity);
+          }
         }
       }
       this.getQuantityAndTotalPrice();

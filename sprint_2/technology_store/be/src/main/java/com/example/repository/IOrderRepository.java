@@ -42,7 +42,7 @@ public interface IOrderRepository extends JpaRepository<Order,Long> {
             "        GROUP BY product_id\n" +
             "    )\n" +
             ") img ON img.product_id = p.id\n" +
-            "WHERE is_paid = false and ps.id = ?1",nativeQuery = true)
+            "WHERE is_paid = false and od.ordered_quantity <> 0 and ps.id = ?1",nativeQuery = true)
     List<IOrderDTO> getCart(Long personId);
 
     @Modifying

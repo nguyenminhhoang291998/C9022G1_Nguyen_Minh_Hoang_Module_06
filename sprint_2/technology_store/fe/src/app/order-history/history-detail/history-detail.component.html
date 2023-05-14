@@ -7,17 +7,20 @@
 
       <div class="rounded-3">
         <div class="row d-flex justify-content-center align-items-center py-2">
-          <div class="col-4">
-            <h4 class="text-center">Ngày đặt</h4>
+          <div class="col-2">
+            <h5 class="text-center">Ngày đặt</h5>
           </div>
           <div class="col-2">
-            <h4 class="text-center">Sản phẩm</h4>
+            <h5 class="text-center">Sản phẩm</h5>
           </div>
           <div class="col-3">
-            <h4 class="text-center">Số lượng</h4>
+            <h5 class="text-center">Tên</h5>
+          </div>
+          <div class="col-2">
+            <h5 class="text-center">Số lượng</h5>
           </div>
           <div class="col-3">
-            <h4 class="text-center">Đơn giá</h4>
+            <h5 class="text-center">Đơn giá</h5>
           </div>
         </div>
       </div>
@@ -25,16 +28,20 @@
       <div class="card rounded-3 mb-2" *ngFor="let order of orderHistoryDetail">
         <a style="text-decoration: none" role="button" routerLink="/history/detail/{{order.id}}">
           <div class="row d-flex justify-content-between align-items-center">
-            <div class="col-4">
+            <div class="col-2">
               <h5 class="text-center">{{order.datePurchase | date:'dd/MM/yyyy'}}</h5>
             </div>
 
             <div class="col-2">
-              <img style="max-width: 100%"
+              <img style="max-width: 100%; padding: 3%"
                    src="{{order.url}}">
             </div>
 
             <div class="col-3">
+              <h5 class="text-center">{{order.productName}}</h5>
+            </div>
+
+            <div class="col-2">
               <h5 class="text-center">{{order.orderedQuantity}}</h5>
             </div>
 
@@ -45,7 +52,9 @@
           </div>
         </a>
       </div>
-
+      <div class="p-0">
+        <a class="btn btn-primary" role="button" routerLink="/history/list"><h5>Quay lại</h5></a>
+      </div>
 
     </div>
   </div>

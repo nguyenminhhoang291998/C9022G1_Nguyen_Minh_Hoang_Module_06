@@ -1,0 +1,48 @@
+<div class="container mt-5 mb-5">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="images p-3">
+              <div class="text-center p-2"> <img id="main-image" src="{{imageMain}}" width="80%" /> </div>
+              <div class="thumbnail text-center">
+                <img  *ngFor="let image of imageList" (click)="change_image($event)" src="{{image.url}}" width="70">
+            </div>
+          </div>
+          </div>
+          <div class="product col-md-6">
+            <div class="p-4">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center"> <i class="fa fa-long-arrow-left"></i> <a routerLink="/product/list" class="ml-1">Tất cả sản phẩm</a> </div>
+              </div>
+              <div class="mt-4 mb-3"> <span class="text-uppercase text-muted brand">{{productDetail?.productType?.name}}</span>
+                <h4 class="text-uppercase">{{productDetail?.name}}</h4>
+                <div class="price d-flex flex-row align-items-center"> <h5 class="text-primary mt-2 mb-1"><b>Giá: {{productDetail?.price | number:'1.0-0'}} đ</b></h5>
+                  <!--                  <div class="ml-2"> <small class="dis-price">$59</small> <span>40% OFF</span> </div>-->
+                </div>
+              </div>
+              <p style="font-size: 17px" class="about">{{productDetail?.description}}</p>
+              <div class="cart mt-5 align-items-center">
+                <div class="row m-1">
+                 <p class="col-2 d-flex align-items-center p-0">Số lượng:</p>
+                  <div class="col-4 d-flex justify-content-center align-items-center">
+                    <button class="change" (click)="desc()">-</button>
+                    <input type="number" class="no-spinners" id="quantity" (change)="changQuantity($event)" value="{{quantityInput}}">
+                    <button class="change" (click)="inc()">+</button>
+                  </div>
+                  <p class="col-6 d-flex align-items-center p-0">( Tồn kho: {{productDetail?.productQuantity}} )</p>
+                </div>
+                <div class="row">
+                  <div class="col-7">
+                    <button (click)="addProduct(productDetail.id)" class="btn text-uppercase mr-2 px-4" style="background-color: #d25f00; color: white">Thêm vào giỏ hàng</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

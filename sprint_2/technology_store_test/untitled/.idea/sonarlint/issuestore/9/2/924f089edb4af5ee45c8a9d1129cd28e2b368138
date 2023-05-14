@@ -1,0 +1,27 @@
+
+t	java:S127Y"XRefactor the code in order to not assign to this loop counter from within the loop body.(•è⁄â8≤Ä’£Ä1
+7
+java:S1220""Move this file to a named package.8∏Ä’£Ä1
+X	java:S125"<This block of commented-out lines of code should be removed.(√Í„¿8´Å’£Ä1
+U	java:S1068"9Replace this use of System.out or System.err by a logger.(ôò‡´8≠Å’£Ä1
+\
+java:S1128":Remove this unused import 'java.io.FileNotFoundException'.(∑Óôù˘ˇˇˇˇ8≈Å’£Ä1
+Q
+java:S1128"5Remove this unused import 'java.io.FileOutputStream'.(ò´™g8≈Å’£Ä1
+R
+java:S1128"0Remove this unused import 'java.io.IOException'.(™∫ª⁄˝ˇˇˇˇ8≈Å’£Ä1
+Y
+java:S1128"7Remove this unused import 'java.io.ObjectOutputStream'.(Èª”∫˚ˇˇˇˇ8∆Å’£Ä1
+T
+java:S1128"7Remove this unused import 'java.text.SimpleDateFormat'.(˙°Ÿ€8ÀÅ’£Ä1
+R
+java:S1128"0Remove this unused import 'java.time.LocalDate'.(õë¨Ë˝ˇˇˇˇ8ÀÅ’£Ä1
+J
+java:S1128"-Remove this unused import 'java.time.Period'.(ö…¢Ω8ÀÅ’£Ä1
+\
+java:S1128"?Remove this unused import 'java.time.format.DateTimeFormatter'.(â˜˜™8ÃÅ’£Ä1
+C
+java:S1128	"&Remove this unused import 'java.util'.(ŒÄåŸ8ÃÅ’£Ä1
+Z
+java:S1128
+"8Remove this unused import 'java.util.function.Consumer'.(ÃÜÉ‘˘ˇˇˇˇ8ÃÅ’£Ä1

@@ -10,9 +10,13 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public class Main {
-
+    int x = 5;
+    int y = 10;
 
     public static void main(String []arg){
+        int x = 9;
+        System.out.println(x);
+        int y = 15;
 //      Set<Integer> set = new TreeSet<>();
 //        String ta = "A ";
 //        String z = ta;
@@ -51,9 +55,12 @@ public class Main {
 //            }
 //        }
 //        result.forEach(e -> System.out.println(e.getDateOfBirth()));
-        int[] arr = {9, 5, 7, 2, 9, 1, 10, 9, 10, 5};
-        int thirdLargest = findThirdLargest(arr);
-        System.out.println("Số lớn thứ 3 trong mảng là: " + thirdLargest);
+//        int[] arr = {9, 5, 7, 2, 9, 1, 10, 9, 10, 5};
+//        int thirdLargest = findThirdLargest(arr);
+//        System.out.println("Số lớn thứ 3 trong mảng là: " + thirdLargest);
+        final Person person = new Person("29-02-1999");
+        person.setDateOfBirth("sssss");
+        System.out.println(person.getDateOfBirth());
     }
 
     public static int findThirdLargest(int[] arr) {
